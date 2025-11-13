@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock %}</title>
-
     <style>
         * {
             margin: 0;
@@ -204,23 +203,18 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="header-container">
             <a href="index.html" class="logo">
                 <span class="logo-icon">🚀</span>
                 MySite
             </a>
-
             <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-
             <nav>
                 <ul class="nav-menu" id="navMenu">
-                    <li><a href="{% url 'home' %}" class="nav-link active">Главная</a></li>
+                    <li><a href="{% url 'home' %}" class="nav-link active">Все Tasks</a></li>
                     <li><a href="{% url 'about' %}" class="nav-link">О нас</a></li>
-                    <li><a href="services.html" class="nav-link">Услуги</a></li>
-                    <li><a href="portfolio.html" class="nav-link">Портфолио</a></li>
-                    <li><a href="contact.html" class="nav-link">Контакты</a></li>
+                    <li><a href="{% url 'create' %}" class="nav-link">Создать Task</a></li>
                     
                     <div class="auth-buttons">
                         <a href="login.html" class="btn btn-login">Войти</a>
@@ -231,8 +225,6 @@
         </div>
     </header>
 {% block content %} 
-   
 {% endblock %}
-
 </body>
 </html>

@@ -1,22 +1,30 @@
 {% extends 'base.html'%}
 {% block title%}
-Главная страница
+{{title}}
 {% endblock %}
 
 {% block content %}
+    
     <main class="main-content">
+    
         <div class="content-section">
             <h1>Добро пожаловать на сайт!</h1>
             <p>Это пример контента страницы. Header остается одинаковым на всех страницах.</p>
             <p>Просто скопируйте код header в каждую HTML-страницу вашего проекта.</p>
         </div>
 
-        <div class="content-section">
-            <h2>Как использовать этот header</h2>
-            <p>1. Скопируйте весь код между комментариями <!-- Header --> и <!-- Main Content --></p>
-            <p>2. Вставьте в каждую HTML-страницу вашего проекта</p>
-            <p>3. Обновите класс "active" у ссылки текущей страницы</p>
-            <p>4. Обновите пути в атрибутах href согласно структуре вашего проекта</p>
-        </div>
+        <br><br><br>
+        {% if tasks %}
+
+        {% for el in tasks %}
+        
+            <h3> {{el.title}}</h3>
+            <h3> {{el.task}}</h3>
+        {% endfor %}
+
+        {% else %}
+        <h3>Ничего нет</h3>
+        {% endif %}
+        
     </main>
 {% endblock %}
