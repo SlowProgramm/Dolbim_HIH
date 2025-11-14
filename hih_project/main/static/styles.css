@@ -312,3 +312,7 @@ body {
         0 0 34px rgba(0, 255, 255, 0.5);
     transform: translateY(-2px);
 }
+
+.apps_page_icon_style{
+    width: 100%;
+}

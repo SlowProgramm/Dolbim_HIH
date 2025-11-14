@@ -20,8 +20,12 @@
                 <div class="apps_page_card">
 
                     <!-- Иконка -->
-                    <div class="apps_page_icon">
-                        {{ el.app_icon|safe }}
+                     <div class="apps_page_icon">
+                        {% if el.icon %}
+                             <img src="{{ el.icon.url }}" alt="{{ el.name }}" class="apps_page_icon_style">
+                        {% else %}
+                            <div class="">📱</div>
+                        {% endif %}
                     </div>
 
                     <!-- Информация -->

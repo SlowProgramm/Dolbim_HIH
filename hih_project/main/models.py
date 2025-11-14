@@ -10,8 +10,8 @@ def app_developer_path(instance: 'AppDeveloper', filename: str) -> str:
 
 
 def app_path(instance: 'App', filename: str) -> str:
-    return f'app_id{instance.id}/{filename}'
-
+    # Используем имя приложения вместо ID
+    return f'app_icons/{instance.name}/{filename}'
 
 def app_preview_image_path(instance: 'AppPreviewImage', filename: str) -> str:
     return app_path(instance.app, f'preview_images/{filename}')
@@ -43,7 +43,7 @@ class AppSubcategory(Model):
     icon: ImageField = ImageField(upload_to=icon_path)
 
     def __str__(self) -> str:
-        return f'AppSubcategory(name={self.name}, category={self.category.related_model.name})'
+        return f'AppSubcategory(name={self.name}, category={self.category.name})'
     
 
 class AppAgeRating(Model):
@@ -62,6 +62,8 @@ class AppDeveloper(Model):
     description: TextField = TextField()
     avatar: ImageField = ImageField(upload_to=app_developer_path)
 
+    def __str__(self) -> str:
+        return f'AppDeveloper(name={self.name})'
 
 class App(Model):
     name: CharField = CharField(max_length=256)
@@ -85,6 +87,9 @@ class App(Model):
     """Subcategory of the app."""
     developer: ForeignKey = ForeignKey(AppDeveloper, CASCADE)
     """App developer."""
+
+    def __str__(self) -> str:
+        return f'App(name={self.name})'
 
 
 class AppEstimation(Model):
