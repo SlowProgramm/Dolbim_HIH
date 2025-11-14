@@ -1,3 +1,4 @@
+ 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
 from django.contrib.auth import login, authenticate
@@ -80,6 +81,8 @@ def categories_view(request):
 
 # Страница с приложениями конкретной категории
 def apps_for_category_view(request):
+    # Бля еще изменения
+    # БАБАБАБАБАБАБ
     category_id = request.GET.get('category')
     subcategory_id = request.GET.get('subcategory')
     
