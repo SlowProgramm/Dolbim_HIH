@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Выбор категории - HiH Store
+{% endblock %}
+
+{% block content %}
+<div class="category_list_page">
+    <!-- Заголовок -->
+    <div class="category_list_header">
+        <h1 class="category_list_title">Выберите категорию</h1>
+        <p class="category_list_subtitle">Найдите игры по интересам</p>
+    </div>
+
+    <!-- Форма выбора -->
+    <div class="category_list_form_section">
+        <form method="get" action="{% url 'apps' %}" class="category_list_form">
+            <!-- Выбор категории -->
+            <div class="category_list_form_group">
+                <label class="category_list_form_label">Главная категория</label>
+                <select name="category" class="category_list_select" id="category-select" required>
+                    <option value="">Выберите категорию</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Выбор подкатегории -->
+            <div class="category_list_form_group">
+                <label class="category_list_form_label">Подкатегория</label>
+                <select name="subcategory" class="category_list_select" id="subcategory-select" disabled required>
+                    <option value="">Сначала выберите категорию</option>
+                </select>
+            </div>
+
+            <!-- Кнопка -->
+            <button type="submit" class="category_list_submit_btn">Показать игры</button>
+        </form>
+    </div>
+
+    <!-- Быстрый доступ к категориям -->
+    <div class="category_list_quick_categories">
+        <h2 class="category_list_section_title">Популярные категории</h2>
+        <div class="category_list_grid">
+            {% for category in categories %}
+            <div class="category_list_quick_card" data-category-id="{{ category.id }}">
+                <div class="category_list_icon">
+                    {% if category.icon %}
+                        <img src="{{ category.icon.url }}" alt="{{ category.name }}">
+                    {% else %}
+                        <div class="category_list_icon_placeholder">🎮</div>
+                    {% endif %}
+                </div>
+                <div class="category_list_info">
+                    <h3 class="category_list_name">{{ category.name }}</h3>
+                    <p class="category_list_description">{{ category.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Простой JavaScript для формы -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const categorySelect = document.getElementById('category-select');
+    const subcategorySelect = document.getElementById('subcategory-select');
+    
+    // Данные о подкатегориях (можно загрузить через AJAX, но для простоты сделаем статично)
+    const subcategoriesData = {
+        {% for category in categories %}
+        '{{ category.id }}': [
+            {% for subcategory in category.appsubcategory_set.all %}
+            { id: '{{ subcategory.id }}', name: '{{ subcategory.name }}' },
+            {% endfor %}
+        ],
+        {% endfor %}
+    };
+
+    // Обработчик изменения категории
+    categorySelect.addEventListener('change', function() {
+        const categoryId = this.value;
+        const subcategories = subcategoriesData[categoryId];
+        
+        subcategorySelect.innerHTML = '<option value="">Выберите подкатегорию</option>';
+        subcategorySelect.disabled = !categoryId;
+        
+        if (categoryId && subcategories) {
+            subcategories.forEach(function(subcategory) {
+                const option = document.createElement('option');
+                option.value = subcategory.id;
+                option.textContent = subcategory.name;
+                subcategorySelect.appendChild(option);
+            });
+            subcategorySelect.disabled = false;
+        }
+    });
+
+    // Быстрый выбор категории
+    document.querySelectorAll('.category_list_quick_card').forEach(function(card) {
+        card.addEventListener('click', function() {
+            const categoryId = this.getAttribute('data-category-id');
+            categorySelect.value = categoryId;
+            categorySelect.dispatchEvent(new Event('change'));
+            
+            // Прокрутить к форме
+            document.querySelector('.category_list_form_section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+});
+</script>
+{% endblock %}
