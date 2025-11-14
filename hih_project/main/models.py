@@ -64,7 +64,7 @@ class AppDeveloper(Model):
 
 
 class App(Model):
-    name: CharField = CharField(max=256)
+    name: CharField = CharField(max_length=256)
     """App name."""
     description: TextField = TextField()
     """App description."""
