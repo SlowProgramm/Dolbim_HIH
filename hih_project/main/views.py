@@ -34,7 +34,7 @@ def signup_view(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('home')
+            return redirect('account')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
@@ -46,10 +46,10 @@ def login_view(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('account')
     return render(request, 'login.html', {'form': form})
 
 def account_view(request: HttpRequest) -> HttpResponse:
