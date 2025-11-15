@@ -337,13 +337,30 @@ def import_apps_from_json(json_file_path):
         except Exception as e:
             print(f"Ошибка при добавлении приложения {app_data.get('name', 'Unknown')}: {e}")
 
-# Предполагаемые модели (добавьте в models.py если их нет)
-"""
-class AppScreenshot(models.Model):
-    app = models.ForeignKey(App, on_delete=models.CASCADE, related_name='screenshots')
-    image = models.ImageField(upload_to='app_screenshots/')
-    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"Screenshot for {self.app.name}"
-"""
+def search_apps_view(request: HttpRequest) -> HttpResponse:
+    if request.method == 'POST' and (form := SearchAppsForm(request.POST)).is_valid():
+        search_sorting_method = form.cleaned_data['search_sorting_method']
+
+        if search_sorting_method == 1:
+            order_method = '-rating', '-downloads'
+        elif search_sorting_method == 2:
+            order_method = '-rating'
+        elif search_sorting_method == 3:
+            order_method = '-downloads'
+        elif search_sorting_method == 4:
+            order_method = 'rating', 'downloads'
+        elif search_sorting_method == 5:
+            order_method = 'rating'
+        elif search_sorting_method == 6:
+            order_method = 'downloads'
+        else:
+            order_method = ()
+
+        search_request = form.cleaned_data['search_request'].lower()
+        apps = App.objects.get_queryset().filter(name__icontains=search_request).order_by(*order_method).all()
+    else:
+        form = SearchAppsForm()
+        search_request = None
+        apps = None
+    return render(request, 'search.html', {'form': form, 'apps': apps, 'search_request': search_request})

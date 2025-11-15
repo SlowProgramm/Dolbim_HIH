@@ -95,3 +95,28 @@ class EstimationForm(forms.ModelForm):
     class Meta:
         model = AppEstimation
         fields = ["estimation", "content"]
+
+
+class SearchAppsForm(Form):
+    search_request = CharField(
+        label='Поисковый запрос',
+        required=True,
+        widget=forms.TextInput(attrs={
+            'class': 'search-request'
+        })
+    )
+    search_sorting_method = forms.TypedChoiceField(
+        coerce=int,
+        choices=[
+            (1, 'популярности (Возрастание)'),
+            (2, 'отзывам (Возрастание)'),
+            (3, 'скачиваниям (Возрастание)'),
+            (4, 'популярности (Убывание)'),
+            (5, 'отзывам (Убывание)'),
+            (6, 'скачиваниям (Убывание)')
+        ],
+        required=False,
+        initial=1,
+        label='Метод сортировки поиска',
+        widget=forms.Select(attrs={'class': 'search-sorting-methods'})
+    )

@@ -17,6 +17,7 @@ urlpatterns = [
     path('app_for_category/', apps_for_category_view, name='app_for_category'),
     path('developer/<str:dev_id>/', developer_view, name='developer'),
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
+    path('search/', search_apps_view, name='search')
 ]
 
 if settings.DEBUG:
