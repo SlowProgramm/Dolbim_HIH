@@ -5,10 +5,6 @@ from django.contrib.auth import login, authenticate
 from .models import *
 from .forms import *
 
-def index_view(request: HttpRequest) -> HttpResponse:
-    tasks = Task.objects.all()
-    tasks = Task.objects.order_by('id')
-    return render(request, 'hello.html', {'title':'Главная', 'tasks':tasks})
 
 def about_view(request: HttpRequest) -> HttpResponse:
     return render(request, 'about.html')
