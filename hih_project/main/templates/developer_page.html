@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% block title %}
+{{ dev.name }} - HiH Store
+{% endblock %}
+
+
+{% block content %}
+    <main class="main-content">
+        {% if apps %}
+        <div class="apps_page_grid">
+
+            {% for el in apps %}
+            <!-- Вся карточка становится ссылкой -->
+             <a href="{% url 'app_detail' app_id=el.id %}" class="apps_page_card_link">
+                <div class="apps_page_card">
+
+                    <!-- Иконка -->
+                     <div class="apps_page_icon">
+                        {% if el.icon %}
+                             <img src="{{ el.icon.url }}" alt="{{ el.name }}" class="apps_page_icon_style">
+                        {% else %}
+                            <div class="">📱</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Информация -->
+                    <div class="apps_page_info">
+                        <div class="apps_page_title">{{ el.name }}</div>
+                        <div class="apps_page_desc">{{ el.subcategory.name }}</div>
+                        <div class="apps_page_rating">
+                            ⭐️ {{ el.rating }}
+                        </div>
+                    </div>
+
+                </div>
+            </a>
+            {% endfor %}
+
+        </div>
+        {% else %}
+        <h1>Нет приложений</h1>
+        {% endif %}
+    </main>
+{% endblock %}

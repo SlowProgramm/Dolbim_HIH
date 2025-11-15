@@ -18,7 +18,7 @@
         
         <div class="app_detail_page_info">
             <h1 class="app_detail_page_title">{{ app.name }}</h1>
-            <p class="app_detail_page_developer">{{ app.developer.name }}</p>
+            <a href="{% url 'developer' dev_id=app.developer.id %}" class="app_detail_page_developer">{{ app.developer.name }}</a>
             
             <div class="app_detail_page_meta">
                 <div class="app_detail_page_rating">

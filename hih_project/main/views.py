@@ -92,3 +92,19 @@ def apps_for_category_view(request: HttpRequest) -> HttpResponse:
     }
     
     return render(request, 'app_for_category.html', context)
+
+
+def developer_view(request: HttpRequest, dev_id:int) -> HttpResponse:
+    name = request.GET.get('name')
+    try:
+        dev = AppDeveloper.objects.get(id=dev_id)
+
+        apps = App.objects.filter(developer=dev)
+
+        context = {
+            'dev': dev,
+            'apps' : apps,
+        }
+        return render(request, 'developer_page.html', context)
+    except App.DoesNotExist:
+        return render(request, '404.html', status=404)
