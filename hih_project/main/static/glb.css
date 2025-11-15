@@ -30,7 +30,7 @@ html::-webkit-scrollbar {
 a, p, h1, h2, h3, h4, h5, h6 {
     margin: 0;
     letter-spacing: 1px;
-    color: #ffffff;
+    color: #000;
 }
 
 a {
@@ -40,4 +40,8 @@ a {
 
 .main {
     padding: 30px 50px;
+}
+
+.review-login {
+    color: #000;
 }
