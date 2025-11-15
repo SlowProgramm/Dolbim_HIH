@@ -1,16 +1,107 @@
 .store {
 	font-size: 65px;
 
-	margin-top: 50px;
-	margin-bottom: 20px;
+	max-width: 1240px;
+
+	margin: 50px 0;
 }
 
 .text {
 	font-size: 40px;
 
+	max-width: 800px;
+
 	text-decoration: underline #45A29E;
 }
 
 .hbody {
-	margin-left: 20px;
+	margin: 0 20px;
 }
+
+.regInfo {
+	max-width: 750px;
+
+	margin-top: 30px;
+	margin-bottom: 20px;
+	font-size: 20px;
+}
+
+.regBtn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	font-size: 25px;
+
+	color: #fff;
+
+	height: 50px;
+	width: 200px;
+	margin: auto;
+
+	background-color: #45A29E;
+	border-radius: 30px;
+	filter: drop-shadow(2px 2px 0px rgba(102, 252, 241, 1));
+}
+
+.loginBtn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	font-size: 25px;
+
+	color: #fff;
+
+	height: 50px;
+	width: 120px;
+	margin-left: auto;
+
+	background-color: #1F2833;
+	border-radius: 30px;
+
+	margin-left: 20px;
+	filter: drop-shadow(2px 2px 0px rgba(102, 252, 241, 1));
+}
+
+.rnlBtns {
+	display: flex;
+
+	margin: 30px 0;
+}
+
+.hcategories {
+	font-size: 25px;
+
+	margin-top: 150px;
+}
+
+.excite {
+
+}
+
+.specials {
+	display: flex;
+	flex-direction: row;
+
+	margin-top: 90px;
+	margin-bottom: 50px;
+}
+
+.garanties {
+	margin: 10px;
+}
+
+.catBtns {
+	display: flex;
+}
+
+.catBtn {
+	padding: 5px 20px;
+
+	margin: 10px;
+
+	border: 2px solid rgba(102, 252, 241, 1);
+	border-radius: 30px;
+}
+

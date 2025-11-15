@@ -59,8 +59,12 @@
 }
 
 .body {
-    margin: 0px;
+    margin: 0;
+    padding: 0;
     background-color: #0b0c10;
+
+    background: linear-gradient(-45deg, #45A29E, #0b0c10);
+    background-size: 100% 100%;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -69,6 +73,20 @@ p, h1, h2, h3, h4, h5, h6 {
     letter-spacing: 1px;
 
     color: #ffffff;
+
+    width: fit-content;
+    
+    margin: 0;
+}
+
+a {
+    display: inline;
+
+    text-decoration: none;
+    font-family: Jura, sans-serif;
+    letter-spacing: 1px;
+
+    color: #66fcf1;
 
     width: fit-content;
     
