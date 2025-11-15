@@ -1,8 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from django.forms import ModelForm, TextInput, Textarea, CharField, PasswordInput
+from django.forms import ModelForm, TextInput, Textarea, CharField, PasswordInput, Form, IntegerField
 from django.db.models import Model
-from .models import StoreUser
+from .models import StoreUser, AppEstimation
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -62,3 +62,11 @@ class SignUpForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username: CharField = CharField(label='Имя пользователя')
     password: CharField = CharField(label='Пароль', widget=PasswordInput)
+
+
+class EstimationForm(Form):
+    estimation = IntegerField(max_value=5, min_value=1, required=True)
+    estimation_content = CharField(max_length=1000, widget=Textarea(attrs={
+        'class': 'estimation_content',
+        'placeholder': 'Расскажите о ваших впечатлениях...'
+    }))

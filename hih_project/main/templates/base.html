@@ -6,45 +6,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock %}</title>
-     <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="{% static 'glb.css' %}">
     <link rel="stylesheet" href="{% static 'base.css' %}">
     <link rel="stylesheet" href="{% static 'hello.css' %}">
     <link rel="stylesheet" href="{% static 'catalog.css' %}">
+    <link rel="stylesheet" href="{% static 'category.css' %}">
 </head>
 
-<body class="body">
+<body>
     <header class="header">
-        <div style="display: flex; align-items: center;">
-            <a href="{% url 'index' %}" class="logo noDec">
-                <img src="{% static 'src/RuStore_logo.png' %}" class="logoImg">
-                <h4 class="siteName">RuStore</h4>
-            </a>
-            <nav class="menu">
-                <a href="{% url 'index' %}" class="noDec"><h3 class="nav">Главная</h3></a>
-                <a href="{% url 'apps' %}" class="noDec"><h3 class="nav">Каталог</h3></a>
-                <a href="{% url 'categories' %}" class="noDec"><h3 class="nav">Категории</h3></a>
-            </nav>
-            <button></button>
-        </div>
-    </header>
+    <div class="header__inner">
 
-    <main>
+        <!-- ЛОГО -->
+        <a href="{% url 'index' %}" class="header__logo">
+            <img src="{% static 'src/RuStore_logo.png' %}" class="header__logo-img" alt="Логотип">
+            <h4 class="header__logo-text">RuStore</h4>
+        </a>
+
+        <!-- МЕНЮ — теперь внутри флекс-структуры -->
+        <nav class="nav">
+            <a href="{% url 'index' %}" class="nav__item">Главная</a>
+            <a href="{% url 'apps' %}" class="nav__item">Каталог</a>
+            <a href="{% url 'categories' %}" class="nav__item">Категории</a>
+        </nav>
+
+        <!-- ПОИСК + ЮЗЕР -->
+        <div class="header__right">
+            <button class="search-btn">
+                <img src="{% static 'src/search.png' %}" class="search-btn__icon" alt="">
+                Поиск
+            </button>
+
+            <a href="/signup" class="user-link">
+                <img src="{% static 'src/avatar.png' %}" class="user" alt="">
+            </a>
+        </div>
+    </div>
+</header>
+
+
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="main">
         {% block content %}{% endblock %}
     </main>
 </body>
 </html>
-
-
-<div class="header-container">
-    <nav class="menu">
-                <ul class="nav-menu" id="navMenu">                    
-                    <div class="auth-buttons">
-                        <a href="{% url 'login' %}" class="btn btn-login">Войти</a>
-                        <a href="{% url 'signup' %}" class="btn btn-signup">Регистрация</a>
-                        <a href="{% url 'account' %}" class="btn btn-account">Личный кабинет</a>
-                        <a href="{% url 'apps' %}" class="btn btn-account">Библиотека</a>
-                    </div>
-                </ul>
-            </nav>
-        </div>

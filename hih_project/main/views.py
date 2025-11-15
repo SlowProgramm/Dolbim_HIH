@@ -1,7 +1,9 @@
 from uuid import uuid6
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
+from django.utils import timezone
 from django.contrib.auth import login, authenticate
+from datetime import datetime
 from .models import *
 from .forms import *
 import os
@@ -141,24 +143,77 @@ def account_view(request: HttpRequest) -> HttpResponse:
 
 
 def apps_view(request: HttpRequest) -> HttpResponse:
-    apps = App.objects.all()
-    return render(request, 'apps.html', {'apps': apps})
+    if request.user.is_authenticated:
+        pass
+
+    return render(request, 'apps.html', {
+        'popular_apps': App.objects.order_by('-rating', '-downloads').all(),
+
+    })
 
 
-def app_detail_view(request: HttpRequest, app_id: str)-> HttpResponse:
+def app_detail_view(request: HttpRequest, app_id: str) -> HttpResponse:
     try:
         app = App.objects.get(id=app_id)
-        return render(request, 'app_detail.html', {
-            'app': app,
-            'estimations': AppEstimation.objects.filter(app=app)
-        })
     except App.DoesNotExist:
         return render(request, '404.html', status=404)
+    
+    try:
+        estimation = AppEstimation.objects.get(author=request.user, app=app)
+    except AppEstimation.DoesNotExist:
+        estimation = None
+
+    if request.user.is_authenticated:
+        if len(request.user.history) == 100:
+            request.user.history.pop()
+        request.user.history.insert(0, app.subcategory.id)
+        request.user.save()
+    
+    if request.method == 'POST':
+        form = EstimationForm(request.POST)
+        if form.is_valid():
+            form_estimation: float = form.cleaned_data['estimation']
+            form_estimation_content: str = form.cleaned_data['estimation_content']
+            if estimation is not None:
+                app.rating = app.rating - (estimation.estimation - form_estimation) / app.estimations_count
+                app.save()
+
+                estimation.estimation = form_estimation
+                estimation.content = form_estimation_content
+                estimation.published_at = timezone.now()
+                estimation.save()
+            else:
+                estimation = AppEstimation.objects.create(
+                    app=app,
+                    author=request.user,
+                    estimation=form_estimation,
+                    published_at=timezone.now(),
+                    content=form_estimation_content
+                )
+
+                app.rating = (app.rating * app.estimations_count + estimation.estimation) / (app.estimations_count + 1)
+                app.estimations_count += 1
+                app.save()
+
+                request.user.estimations.append(estimation.id)
+                request.user.save()
+    elif estimation is not None:
+        form = EstimationForm(initial={
+            'estimation': estimation.estimation,
+            'estimation_content': estimation.content
+        })
+    else:
+        form = EstimationForm()
+    return render(request, 'app_detail.html', {
+        'app': app,
+        'user_estimation_exists': estimation is not None,
+        'estimations': AppEstimation.objects.filter(app=app),
+        'form': form
+    })
 
 
 def category_view(request: HttpRequest) -> HttpResponse:
     categories = AppCategory.objects.all()
-
     context = {'categories': categories}
 
     if request.method == 'POST':
@@ -173,7 +228,6 @@ def category_view(request: HttpRequest) -> HttpResponse:
             context['apps'] = App.objects.filter(subcategory=subcategory)
     
     return render(request, 'category_list.html', context)
-
 
 
 def apps_for_category_view(request):

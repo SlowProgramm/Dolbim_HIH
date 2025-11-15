@@ -1,0 +1,156 @@
+/* -------------------------------------------------------
+   ОБЁРТКА СТРАНИЦЫ
+------------------------------------------------------- */
+
+.cat-page {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Jura', sans-serif;
+}
+
+.cat-title {
+    font-family: 'Jura', sans-serif;
+    font-size: 46px;
+    font-weight: 800;
+    text-align: center;
+
+    color: #544DDF;
+    margin-bottom: 40px;
+
+    text-shadow: 0 3px 10px rgba(108, 99, 255, 0.2);
+}
+
+/* -------------------------------------------------------
+   СЕТКА КАТЕГОРИЙ
+------------------------------------------------------- */
+
+.cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    margin-bottom: 50px;
+}
+
+.cat-card {
+    background: rgba(255,255,255,0.7);
+    border: 2px solid #DBD4FF;
+    border-radius: 20px;
+
+    padding: 25px 20px;
+    cursor: pointer;
+
+    font-family: 'Jura', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #544DDF;
+
+    text-align: center;
+
+    transition: 0.3s ease;
+    backdrop-filter: blur(6px);
+
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.15);
+}
+
+.cat-card:hover {
+    background: #F3F0FF;
+    border-color: #A393FF;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(108, 99, 255, 0.25);
+}
+
+.subcat-card {
+    border-color: #CBC3FF;
+}
+
+.subcat-title {
+    font-family: 'Jura', sans-serif;
+    font-size: 34px;
+    margin-bottom: 25px;
+    color: #544DDF;
+}
+
+/* -------------------------------------------------------
+   СПИСОК ПРИЛОЖЕНИЙ
+------------------------------------------------------- */
+
+.apps-grid {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    margin-top: 20px;
+}
+
+.app-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 18px;
+    background: rgba(255,255,255,0.8);
+
+    border: 2px solid #DBD4FF;
+    border-radius: 20px;
+
+    text-decoration: none;
+    transition: 0.3s ease;
+
+    box-shadow: 0 4px 14px rgba(108, 99, 255, 0.15);
+}
+
+.app-card:hover {
+    background: #F3F0FF;
+    border-color: #A393FF;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(108, 99, 255, 0.25);
+}
+
+.app-card-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+.app-card-title {
+    font-family: 'Jura', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #544DDF;
+}
+
+.app-card-cat {
+    font-family: 'Jura', sans-serif;
+    font-size: 17px;
+    color: #6C63FF;
+    margin: 4px 0;
+}
+
+.app-card-rating {
+    font-family: 'Jura', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #45A29E;
+}
+
+.no-apps {
+    font-family: 'Jura', sans-serif;
+    font-size: 26px;
+    text-align: center;
+    color: #544DDF;
+    margin-top: 40px;
+}
+
+/* АДАПТИВ */
+@media (max-width: 600px) {
+    .cat-title {
+        font-size: 34px;
+    }
+    .cat-card {
+        padding: 18px;
+    }
+    .app-card {
+        padding: 14px;
+    }
+}

@@ -1,95 +1,43 @@
+/* ======= Подключение шрифтов Jura ======= */
+
 @font-face {
     font-family: 'Jura';
-    src: url('fonts/Jura-SemiBold.eot');
-    src: local('Jura SemiBold'), local('Jura-SemiBold'),
-        url('fonts/Jura-SemiBold.eot?#iefix') format('embedded-opentype'),
-        url('fonts/Jura-SemiBold.woff2') format('woff2'),
-        url('fonts/Jura-SemiBold.woff') format('woff'),
-        url('fonts/Jura-SemiBold.ttf') format('truetype');
+    src: url('fonts/Jura-Regular.woff2') format('woff2'),
+         url('fonts/Jura-Regular.woff') format('woff');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Jura';
+    src: url('fonts/Jura-SemiBold.woff2') format('woff2');
     font-weight: 600;
-    font-style: normal;
 }
 
-@font-face {
-    font-family: 'Jura';
-    src: url('fonts/Jura-Regular.eot');
-    src: local('Jura Regular'), local('Jura-Regular'),
-        url('fonts/Jura-Regular.eot?#iefix') format('embedded-opentype'),
-        url('fonts/Jura-Regular.woff2') format('woff2'),
-        url('fonts/Jura-Regular.woff') format('woff'),
-        url('fonts/Jura-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+/* ======= Глобальная тема ======= */
 
-@font-face {
-    font-family: 'Jura';
-    src: url('fonts/Jura-Light.eot');
-    src: local('Jura Light'), local('Jura-Light'),
-        url('fonts/Jura-Light.eot?#iefix') format('embedded-opentype'),
-        url('fonts/Jura-Light.woff2') format('woff2'),
-        url('fonts/Jura-Light.woff') format('woff'),
-        url('fonts/Jura-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Jura';
-    src: url('fonts/Jura-Bold.eot');
-    src: local('Jura Bold'), local('Jura-Bold'),
-        url('fonts/Jura-Bold.eot?#iefix') format('embedded-opentype'),
-        url('fonts/Jura-Bold.woff2') format('woff2'),
-        url('fonts/Jura-Bold.woff') format('woff'),
-        url('fonts/Jura-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Jura';
-    src: url('fonts/Jura-Medium.eot');
-    src: local('Jura Medium'), local('Jura-Medium'),
-        url('fonts/Jura-Medium.eot?#iefix') format('embedded-opentype'),
-        url('fonts/Jura-Medium.woff2') format('woff2'),
-        url('fonts/Jura-Medium.woff') format('woff'),
-        url('fonts/Jura-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-}
-
-.body {
+body {
     margin: 0;
-    padding: 0;
-    background-color: #0b0c10;
+    background: linear-gradient(-45deg, #EDE7FF, #F5F3FF 80%);
     min-height: 100vh;
-
-    background: linear-gradient(-45deg, #45A29E, #0b0c10);
-    background-size: 100% 100%;
+    font-family: Jura, sans-serif;
+    color: #ffffff;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
-    text-decoration: none;
-    font-family: Jura, sans-serif;
-    letter-spacing: 1px;
+html::-webkit-scrollbar {
+    width: 0;
+}
 
-    color: #ffffff;
-
-    width: fit-content;
-    
+a, p, h1, h2, h3, h4, h5, h6 {
     margin: 0;
+    letter-spacing: 1px;
+    color: #ffffff;
 }
 
 a {
-    display: inline;
+    color: #F5F3FF;
+    transition: 0.3s;
+}
 
-    text-decoration: none;
-    font-family: Jura, sans-serif;
-    letter-spacing: 1px;
-
-    color: #66fcf1;
-
-    width: fit-content;
-    
-    margin: 0;
+.main {
+    padding: 30px 50px;
 }

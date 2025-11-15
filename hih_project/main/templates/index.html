@@ -5,38 +5,38 @@
 {% endblock %}
 
 {% block content %}
-<div class="hbody">
-    <h1 class="store">Официальный российский магазин приложений для Android</h1>
+<div class="page">
+    <h1 class="page__title">Официальный российский магазин приложений для Android</h1>
     
-    <div>
-        <p class="text">Безопасный доступ к популярным играм и приложениям</p>
-        <h2 class="regInfo">Перед использоваением рекомендуется зарегистрироваться или войти в аккаунт, если вы уже зарегистрированы</h2>
-        <div class="rnlBtns">
-            <a href="signup/"><div class="regBtn">Регистрация</div></a>
-            <a href="login"><div class="loginBtn">Войти</div></a>
+    <div class="page__intro">
+        <p class="page__subtitle">Безопасный доступ к популярным играм и приложениям</p>
+        <h2 class="page__notice">Перед использоваением рекомендуется зарегистрироваться или войти в аккаунт, если вы уже зарегистрированы</h2>
+        
+        <div class="auth">
+            <a href="signup/" class="auth__btn auth__btn--primary">Регистрация</a>
+            <a href="login" class="auth__btn auth__btn--secondary">Войти</a>
         </div>
     </div>
 
-
-    <div class="hcategories">
-        <h1 class="excite">Проведите время с удовольствием</h1>
-        <div class="catBtns">
-            <a href="/categories" class="catBtn">Аркады</a>
-            <a href="/categories" class="catBtn">Головоломки</a>
-            <a href="/categories" class="catBtn">Шутеры</a>
-            <a href="/categories" class="catBtn">Экшен</a>
+    <div class="categories-section">
+        <h1 class="categories-section__title">Проведите время с удовольствием</h1>
+        <div class="categories">
+            <a href="/categories" class="categories__item">Аркады</a>
+            <a href="/categories" class="categories__item">Головоломки</a>
+            <a href="/categories" class="categories__item">Шутеры</a>
+            <a href="/categories" class="categories__item">Экшен</a>
         </div>
     </div>
 
-
-    <div class="specials">
-        <div class="garanties">
-            <h1>Гарантия безопасности</h1>
-            <p>Проверка приложений модерзацией и антивирусом</p>
+    <div class="features">
+        <div class="feature-card">
+            <h1 class="feature-card__title">Гарантия безопасности</h1>
+            <p class="feature-card__text">Проверка приложений модерзацией и антивирусом</p>
         </div>
-        <div class="garanties">
-            <h1>Доступ к приложениям без ограничений</h1>
-            <p>Все пред рукой — от мобильных банков до игровых китов</p>
+
+        <div class="feature-card">
+            <h1 class="feature-card__title">Доступ к приложениям без ограничений</h1>
+            <p class="feature-card__text">Все пред рукой — от мобильных банков до игровых китов</p>
         </div>
     </div>
 </div>

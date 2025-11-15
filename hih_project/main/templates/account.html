@@ -50,7 +50,7 @@
                     <div class="account_page-stat-label">Купленные приложения</div>
                 </div>
                 <div class="account_page-stat-card">
-                    <div class="account_page-stat-number">{{ user.estimations|length }}</div>
+                    <div class="account_page-stat-number">{{ user_estimations|length }}</div>
                     <div class="account_page-stat-label">Оставленные оценки</div>
                 </div>
                 <div class="account_page-stat-card">
@@ -115,15 +115,15 @@
             <div class="account_page-section">
                 <h2 class="account_page-section-title">Ваши оценки</h2>
                 <div class="account_page-apps-grid">
-                    {% if user.estimations %}
-                        {% for estimation in user.estimations %}
-                        <div class="account_page-app-card">
-                            <div class="account_page-app-icon-placeholder" style="background: #4CAF50;"></div>
+                    {% if user_estimations %}
+                        {% for estimation in user_estimations %}
+                        <a class="account_page-app-card" href="{% url 'app_detail' app_id=estimation.app.id %}">
+                            <img class="account_page-app-icon-placeholder" src="{{ estimation.app.icon.url }}"></img>
                             <div class="account_page-app-info">
-                                <div class="account_page-app-name">Оценка #{{ forloop.counter }}</div>
-                                <div class="account_page-app-category">Рейтинг: {{ estimation.rating }}/5</div>
+                                <div class="account_page-app-name">Отзыв на игру "{{ estimation.app.name }}"</div>
+                                <div class="account_page-app-category">Рейтинг: {{ estimation.estimation|floatformat }}/5</div>
                             </div>
-                        </div>
+                        </a>
                         {% endfor %}
                     {% else %}
                         <div class="account_page-empty-state">

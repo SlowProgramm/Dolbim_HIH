@@ -67,11 +67,18 @@
 
         <div class="app_estimations_page_section">
             <h2>Оставить отзыв</h2>
-            {% csrf_token %}
             {% if user.is_authenticated %}
                 <form method="post">
-                    <textarea></textarea>
-                    <button type="submit" name="new_estimation">Оставить отзыв</button>
+                    {% csrf_token %}
+                    {{ form.estimation }}
+                    {{ form.estimation_content }}
+                    <button type="submit" name="submit" value="estimate">
+                        {% if user_estimation_exists %}
+                            Изменить отзыв
+                        {% else %}
+                            Оставить отзыв
+                        {% endif %}
+                    </button>
                 </form>
             {% else %}
                 <span>Войдите, чтобы оставить отзыв!</span>
@@ -80,7 +87,8 @@
             {% for estimation in estimations %}
                 {% if estimation.author and estimation.content %}
                     <div class="app_estimation">
-                        <span class="app_estimation_author_name">{{ estimation.author.name }}</span>
+                        <span class="app_estimation_value">{{ estimation.estimation }}</span>
+                        <span class="app_estimation_author_name">{{ estimation.author.username }}</span>
                         <span class="app_estimation_content">{{ estimation.content }}</span>
                         <span class="app_estimation_publishing_date">{{ estimation.published_at|date:"d F Y H:i" }}</span>
                     </div>

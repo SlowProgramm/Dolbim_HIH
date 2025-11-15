@@ -1,98 +1,171 @@
-.cbody {
-	margin-top: 20px;
-	margin-left: 20px;
+/* --------------------------------------------------
+   СТРАНИЦА КАТАЛОГА
+-------------------------------------------------- */
+
+.catalog {
+    margin: 40px auto;
+    max-width: 1300px;
+    padding: 0 20px;
 }
 
-.title {
-	font-size: 70px;
+/* --------------------------------------------------
+   ЗАГОЛОВКИ
+-------------------------------------------------- */
 
-	text-shadow: 2px 2px 0px rgba(102, 252, 241, 0.50);
-}
-.content{
-	display: flex;
-}
-
-
-.content2 {
-	display: flex;
-	width: 100%;
-	 flex-wrap: wrap;
+.catalog__section {
+    margin-top: 40px;
 }
 
-.gameInt {
-	margin: 5px 10px;
+.catalog__section-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #544DDF;
+    margin-bottom: 20px;
 
-	border-radius: 20px;
-
-	width: 400px;
-	height: 300px;
-
-	background-color: #1F2833;
+    text-shadow: 0 2px 6px rgba(108, 99, 255, 0.15);
 }
 
-.gameTop {
-	display: flex;
-	margin: 5px 10px;
+/* --------------------------------------------------
+   БЛОК «ИНТЕРЕСНОЕ»
+-------------------------------------------------- */
 
-	border-radius: 20px;
-
-
-	height: 80px;
-	
+.featured-list {
+    display: flex;
+    gap: 20px;
 }
 
-.cards_div{
-	/* background-color: red; */
-	margin-bottom: 20px;
-	display: flex;
-    flex: 0 0 calc(33.333% - 20px); /* 3 карточки в строке */
-    min-width: 300px; /* Минимальная ширина */
-    box-sizing: border-box; /* Учитывать padding и border в ширине */
+.featured-card {
+    flex: 1;
+    height: 260px;
+
+    border-radius: 20px;
+    background: linear-gradient(135deg, #F3F0FF, #E3DFFF);
+
+    box-shadow: 0 4px 16px rgba(84, 77, 223, 0.12);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+    border: 2px solid transparent;
 }
 
-.gameLogo {
-	width: 80px;
-	height: 80px;
-
-	border-radius: 20px;
-
-	background-color: #1F2833;
+/* Градиентный свет + лёгкое 3D при наведении */
+.featured-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 10px 26px rgba(84, 77, 223, 0.25);
+    border-color: #A393FF;
 }
 
-.info {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+/* --------------------------------------------------
+   СЕТКА ПРИЛОЖЕНИЙ
+-------------------------------------------------- */
 
-	margin-left: 10px;
+.app-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.appTitle {
-
+.app-grid__item {
+    flex: 0 0 calc(33.333% - 20px);
+    width: 400px;
+    display: flex;
 }
 
-.category {
-	font-size: 18px;
-	color: #C5C6C7;
+/* --------------------------------------------------
+   КАРТОЧКА ПРИЛОЖЕНИЯ
+-------------------------------------------------- */
+
+.app-card {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    padding: 14px;
+
+    border-radius: 18px;
+    background: #FBFAFF;
+    text-decoration: none;
+
+    box-shadow: 0 6px 14px rgba(84, 77, 223, 0.1);
+    border: 2px solid transparent;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease,
+        background 0.35s ease;
 }
 
-.rating_div {
-	display: flex;
-	flex-direction: row;
-	align-content: center;
+/* Красивый hover: подсветка рамки + свечения + 3D-эффект */
+.app-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 26px rgba(84, 77, 223, 0.22);
+    border-color: #C8BEFF;
+    background: #F7F5FF;
 }
 
-.rating_text{
-	color:#45A29E;
-	font-family: 10px;
+/* --------------------------------------------------
+   ИКОНКА ПРИЛОЖЕНИЯ
+-------------------------------------------------- */
+
+.app-card__icon {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+
+    background-color: #E3DFFF;
+    border-radius: 16px;
+
+    transition: transform 0.3s ease;
 }
 
-.star {
-	width: 20px;
-	height: 20px;
-
-	margin-right: 10px;
+/* Иконка тоже «подпрыгивает» */
+.app-card:hover .app-card__icon {
+    transform: scale(1.08);
 }
-a{
-text-decoration: none;
+
+/* --------------------------------------------------
+   ИНФОРМАЦИЯ О ПРИЛОЖЕНИИ
+-------------------------------------------------- */
+
+.app-card__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 14px;
+}
+
+.app-card__title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #544DDF;
+}
+
+.app-card__category {
+    font-size: 16px;
+    color: #6C63FF;
+    margin-top: 4px;
+}
+
+/* --------------------------------------------------
+   РЕЙТИНГ
+-------------------------------------------------- */
+
+.app-card__rating {
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+}
+
+.app-card__rating-star {
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+}
+
+.app-card__rating-value {
+    font-size: 16px;
+    color: #A393FF;
+}
+
+a {
+    text-decoration: none;
 }

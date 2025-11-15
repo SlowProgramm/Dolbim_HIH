@@ -2,75 +2,69 @@
 {% load static %}
 
 {% block title %}
-Выбор категории - HiH Store
+Категории — HiH Store
 {% endblock %}
 
 {% block content %}
-<div class="category_list_page">
+<div class="cat-page">
 
-    <div class="category_list_header">
-        <h1 class="category_list_title">Выберите категорию</h1>
-    </div>
-    <form method="post">
+    <!-- Заголовок -->
+    <h1 class="cat-title">Выберите категорию</h1>
+
+    <form method="post" class="cat-form">
         {% csrf_token %}
-        <div class="categories">
+
+        <!-- Категории -->
+        <div class="cat-grid">
             {% for category in categories %}
-                <button type="submit" 
-                        name="category_id" 
+                <button type="submit"
+                        class="cat-card"
+                        name="category_id"
                         value="{{ category.id }}"
                         title="{{ category.description }}">
-                    {{ category.name }}
+                    <span class="cat-card-name">{{ category.name }}</span>
                 </button>
             {% endfor %}
         </div>
 
         {% if selected_category %}
-            <h3>Подкатегории для "{{ selected_category.name }}":</h3>
+            <h2 class="subcat-title">Подкатегории: {{ selected_category.name }}</h2>
+
             {% if subcategories %}
-                <div class="subcategories">
-                    {% for subcategory in subcategories %}
-                        <button type="submit"
-                                name="subcategory_id"
-                                value="{{ subcategory.id }}"
-                                title="{{ subcategory.description }}">
-                            {{ subcategory.name }}
-                        </button>
-                    {% endfor %}
-                </div>
+            <div class="cat-grid subcat-grid">
+                {% for subcategory in subcategories %}
+                    <button type="submit"
+                            class="cat-card subcat-card"
+                            name="subcategory_id"
+                            value="{{ subcategory.id }}"
+                            title="{{ subcategory.description }}">
+                        <span class="cat-card-name">{{ subcategory.name }}</span>
+                    </button>
+                {% endfor %}
+            </div>
             {% endif %}
 
             {% if apps %}
-                <div class="apps_page_grid">
-                    {% for el in apps %}
-                    <!-- Вся карточка становится ссылкой -->
-                    <a href="{% url 'app_detail' app_id=el.id %}" class="apps_page_card_link">
-                        <div class="apps_page_card">
+            <div class="apps-grid">
+                {% for el in apps %}
+                <a href="{% url 'app_detail' app_id=el.id %}" class="app-card">
 
-                            <!-- Иконка -->
-                            <div class="apps_page_icon">
-                                {% if el.icon %}
-                                    <img src="{{ el.icon.url }}" alt="{{ el.name }}" class="apps_page_icon_style">
-                                {% else %}
-                                    <div class="">📱</div>
-                                {% endif %}
-                            </div>
+                    <img src="{{ el.icon.url }}" class="app-card-icon" alt="{{ el.name }}">
 
-                            <!-- Информация -->
-                            <div class="apps_page_info">
-                                <div class="apps_page_title">{{ el.name }}</div>
-                                <div class="apps_page_desc">{{ el.subcategory.name }}</div>
-                                <div class="apps_page_rating">
-                                    ⭐️ {{ el.rating }}
-                                </div>
-                            </div>
+                    <div class="app-card-info">
+                        <h3 class="app-card-title">{{ el.name }}</h3>
+                        <p class="app-card-cat">{{ el.subcategory.name }}</p>
+                        <p class="app-card-rating">⭐ {{ el.rating }}</p>
+                    </div>
 
-                        </div>
-                    </a>
-                    {% endfor %}
-                </div>
+                </a>
+                {% endfor %}
+            </div>
             {% else %}
-                <h1>Нет приложений</h1>
+            <h2 class="no-apps">Нет приложений</h2>
             {% endif %}
         {% endif %}
+
     </form>
+</div>
 {% endblock %}

@@ -1,91 +1,165 @@
-header {
-    margin-top: 20px;
+/* --------------------------------------------------
+   ХЕДЕР
+-------------------------------------------------- */
+
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+
+    background: linear-gradient(135deg, #FBFAFF 0%, #F3F0FF 100%);
+    box-shadow: 0 2px 12px rgba(32, 25, 70, 0.1);
+
+    padding: 10px 0;
 }
 
-.searchBtnIcon {
-    width: 30px;
-    height: 30px;
-
-    object-fit: contain;
-}
-
-.searchBtn {
-    display: inline;
-
-    background: transparent;
-    border: none;
-
-    text-decoration: none;
-    font-family: Jura, sans-serif;
-    font-size: 35px;
-    letter-spacing: 1px;
-    color: white;
-
-    cursor: pointer;
-
-    width: fit-content;
-    
-    padding: 10px 20px;
-    margin: 0;
-
-    transition: backdrop-filter 0.5s;
-}
-
-
-.noDec {
-    text-decoration: none;
-}
-
-.logo {
-    margin-left: 20px;
-
+.header__inner {
     display: flex;
-    
-    width: fit-content;
+    align-items: center;
+    justify-content: space-between;
 
-    transition: transform 0.8s;
+    margin: 0 50px;
+    padding: 0 20px;
 }
 
-.logo:hover {
-    transform: scale(104%);
+/* --------------------------------------------------
+   ЛОГО
+-------------------------------------------------- */
+
+.header__logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+    transition: transform 0.3s ease;
 }
 
-.logoImg {
+.header__logo:hover {
+    transform: scale(1.03);
+}
+
+.header__logo-img {
+    width: 48px;
+    height: 48px;
     margin-right: 10px;
 
-    width: 50px;
-    height: 50px;
-
-    filter: drop-shadow(2px 2px 0px rgba(102, 252, 241, 0.50));
+    filter: drop-shadow(2px 2px 6px rgba(108, 99, 255, 0.4));
 }
 
-.siteName {
-    font-size: 40px;
-    font-weight: normal;
-    font-style: normal;
-
-    text-shadow: 2px 2px 0px rgba(102, 252, 241, 0.50);
+.header__logo-text {
+    font-size: 34px;
+    font-weight: 700;
+    color: #544DDF;
+    text-shadow: 0 2px 6px rgba(108, 99, 255, 0.15);
 }
+
+.header__right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* --------------------------------------------------
+   МЕНЮ
+-------------------------------------------------- */
 
 .nav {
-    transition: transform 0.8s;
-
-    display: inline-block;
-
-    font-size: 30px;
-    font-weight: normal;
-    font-style: normal;
-
-    text-shadow: 2px 2px 0px rgba(102, 252, 241, 0.50);
-}
-
-.nav:hover {
-    transform: scale(1.04);
-}
-
-.menu {
     display: flex;
-
     margin: 0 auto;
-    gap: 0 50px;
+    gap: 40px;
+}
+
+.nav__item {
+    font-size: 25px;
+    font-weight: 700;
+    text-decoration: none;
+
+    color: #544DDF;
+    transition: 0.25s ease;
+}
+
+.nav__item:hover {
+    color: #6C63FF;
+    transform: translateY(-2px);
+}
+
+/* --------------------------------------------------
+   ПОИСК
+-------------------------------------------------- */
+
+.search-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid #DBD4FF;
+    border-radius: 14px;
+
+    padding: 8px 20px;
+
+    font-family: Jura, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #544DDF;
+
+    cursor: pointer;
+    transition: 0.25s ease;
+    backdrop-filter: blur(6px);
+
+    box-shadow: 0 4px 12px rgba(32, 25, 70, 0.15);
+}
+
+.search-btn:hover {
+    background: #ECE8FF;
+    border-color: #A393FF;
+    transform: translateY(-2px);
+}
+
+.search-btn__icon {
+    width: 26px;
+    height: 26px;
+}
+
+/* --------------------------------------------------
+   ОСНОВНОЙ КОНТЕНТ
+-------------------------------------------------- */
+
+.main {
+    padding-top: 100px;
+}
+
+/* --------------------------------------------------
+   БЛОК ПОЛЬЗОВАТЕЛЯ (АВАТАР)
+-------------------------------------------------- */
+
+/* --------------------------------------------------
+   ИКОНКА ПОЛЬЗОВАТЕЛЯ (БЕЗ ОБВОДКИ)
+-------------------------------------------------- */
+
+.user-link {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 4px;
+    transition: 0.25s ease;
+}
+
+.user {
+    width: 46px;
+    height: 46px;
+    object-fit: cover;
+
+    /* никаких рамок, никаких фонов */
+    border: none;
+    background: none;
+
+    transition: 0.25s ease;
+}
+
+/* Hover — только лёгкое увеличение и мягкая тень */
+.user-link:hover .user {
+    transform: translateY(-2px);
+    filter: drop-shadow(0 6px 16px rgba(108, 99, 255, 0.28));
 }

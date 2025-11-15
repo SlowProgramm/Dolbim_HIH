@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from collections import Counter
 from uuid import uuid6
 
 def generate_id() -> str:
@@ -35,8 +36,24 @@ class StoreUser(AbstractUser):
     id = models.TextField(editable=False, primary_key=True, default=generate_id)
     avatar= models.ImageField(blank=True, upload_to=user_path)
     achievements = models.JSONField(editable=False, default=list)
-    estimations = models.JSONField(editable=False, default=list)
     bought_apps = models.JSONField(editable=False, default=list)
+    history = models.JSONField(editable=False, default=list)
+    """History of the last 100 apps subcategories viewed by user."""
+
+    def query_apps_estimations(self):
+        return AppEstimation.objects.filter(author=self) if self.is_authenticated else ()
+    
+    def get_personal_top_10_apps(self):
+        if not self.is_authenticated:
+            return ()
+        history_length = len(self.history)
+        personal_top_apps = []
+        subcategories_counter = Counter(self.history)
+        for category, total in subcategories_counter.most_common():
+            if len(personal_top_apps) == 10:
+                break
+            apps_to_choose_amount = total / 
+        return AppEstimation.objects
 
     def __str__(self) -> str:
         return f'{self.id}_{self.username}'
@@ -101,8 +118,6 @@ class App(models.Model):
     """Amount of estimations."""
     downloads = models.PositiveBigIntegerField(editable=False, default=0)
     """Amount of unique downloads."""
-    views = models.PositiveBigIntegerField(editable=False, default=0)
-    """Amount of unique views."""
 
     def __str__(self) -> str:
         return f'App(name={self.name})'
