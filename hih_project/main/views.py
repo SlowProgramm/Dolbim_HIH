@@ -1,9 +1,105 @@
- 
+from uuid import uuid6
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
 from django.contrib.auth import login, authenticate
 from .models import *
 from .forms import *
+import os
+import random
+import shutil
+from django.core.files import File
+from django.conf import settings
+
+
+def get_and_remove_random_icon():
+    icons_dir = "C:/Users/Sol/Desktop/hih_icons"
+    
+    
+    image_files = []
+    for file in os.listdir(icons_dir):
+        if file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
+            image_files.append(file)
+    
+    if not image_files:
+        return None
+    
+
+    random_icon = random.choice(image_files)
+    icon_path = os.path.join(icons_dir, random_icon)
+    
+    return icon_path, random_icon
+
+def remove_icon_from_folder(icon_path):
+    """Удалить файл иконки из папки"""
+    try:
+        if os.path.exists(icon_path):
+            os.remove(icon_path)
+            print(f"Иконка удалена: {icon_path}")
+            return True
+    except Exception as e:
+        print(f"Ошибка при удалении иконки: {e}")
+    return False
+
+
+
+def create_app(request):
+    # TARGET_CATEGORIES = [
+    #     "Шутеры",
+    #     "Аркады",
+    #     "Гоночные",
+    #     "Игры с AR",
+    #     "Головоломки",
+    #     "Словесные",
+    #     "Викторины",
+    #     "Приключения",
+    #     "Ролевые",
+    #     "Инди",
+    #     "Стратегии",
+    #     "Настольные игры",
+    #     "Карточные",
+    #     "Детские",
+    #     "Семейные",
+    # ]
+    
+    main_category, created = AppCategory.objects.get_or_create(name="Игры")
+    
+    # Создаем все субкатегории
+    for category_name in TARGET_CATEGORIES:
+        AppSubcategory.objects.get_or_create(
+            name=category_name,
+            category=main_category
+        )
+    
+    # print(f"Создано {len(TARGET_CATEGORIES)} субкатегорий")
+
+
+    # ico_path, dir = get_and_remove_random_icon()
+
+    # app = App(
+    #         id=str(uuid6()),
+    #         name="Имя приложение",
+    #         description="Это тестовое приложение, созданное через кнопку",
+    #         size=125,
+    #         age_rating=AppAgeRating.objects.order_by('?').first(),
+    #         subcategory=AppSubcategory.objects.order_by('?').first(),
+    #         developer=AppDeveloper.objects.order_by('?').first(),
+    #         rating=0,
+    #         estimations_count=0,
+    #         downloads=0,
+    #         views=0,
+    #     )
+    # icon_result = get_and_remove_random_icon()
+    # if icon_result:
+    #     icon_path, original_filename = icon_result
+    #     with open(icon_path, 'rb') as f:
+    #         app.icon.save(original_filename, File(f), save=False)
+    #     app.save()
+    #     remove_icon_from_folder(icon_path)
+    #     print('ХАЙП')
+    # else:
+    #     print('Error')
+    return render(request, 'account.html')
+
 
 def index_view(request: HttpRequest) -> HttpResponse:
     return render(request, 'index.html', {'title':'Главная'})
@@ -39,6 +135,8 @@ def login_view(request: HttpRequest) -> HttpResponse:
 
 
 def account_view(request: HttpRequest) -> HttpResponse:
+    if request.method == 'POST':
+        create_app(request)
     return render(request, 'account.html')
 
 
@@ -123,3 +221,74 @@ def developer_view(request: HttpRequest, dev_id: str) -> HttpResponse:
         return render(request, 'developer_page.html', context)
     except App.DoesNotExist:
         return render(request, '404.html', status=404)
+    
+
+def import_apps_from_json(json_file_path):
+    # Чтение JSON файла
+    with open(json_file_path, 'r', encoding='utf-8') as file:
+        apps_data = json.load(file)
+    
+    for app_data in apps_data:
+        try:
+            # Создание основного объекта приложения
+            app = App(
+                id=str(uuid6()),
+                name=app_data['name'],
+                description=app_data.get('short_description', '') or "Описание отсутствует",
+                size=125,  # Можно рассчитать на основе реальных данных или оставить по умолчанию
+                age_rating=AppAgeRating.objects.order_by('?').first(),
+                subcategory=AppSubcategory.objects.order_by('?').first(),
+                developer=AppDeveloper.objects.order_by('?').first(),
+                rating=app_data.get('rating', 0),
+                estimations_count=app_data.get('rating_count', 0),
+                downloads=0,
+                views=0,
+            )
+            app.save()
+            
+            # Загрузка иконки
+            if app_data.get('icon_url'):
+                try:
+                    icon_response = requests.get(app_data['icon_url'], timeout=10)
+                    if icon_response.status_code == 200:
+                        icon_name = f"app_icons/{app.id}_icon.jpg"
+                        app.icon.save(icon_name, ContentFile(icon_response.content), save=True)
+                except Exception as e:
+                    print(f"Ошибка загрузки иконки для {app_data['name']}: {e}")
+            
+            # Загрузка скриншотов
+            if app_data.get('screenshots'):
+                for i, screenshot_url in enumerate(app_data['screenshots']):
+                    try:
+                        screenshot_response = requests.get(screenshot_url, timeout=10)
+                        if screenshot_response.status_code == 200:
+                            screenshot_name = f"app_screenshots/{app.id}_screenshot_{i}.jpg"
+                            
+                            # Создание объекта скриншота (предполагая, что у вас есть модель AppScreenshot)
+                            screenshot = AppScreenshot(
+                                app=app,
+                                image=screenshot_name
+                            )
+                            screenshot.image.save(
+                                screenshot_name, 
+                                ContentFile(screenshot_response.content), 
+                                save=True
+                            )
+                    except Exception as e:
+                        print(f"Ошибка загрузки скриншота {i} для {app_data['name']}: {e}")
+            
+            print(f"Успешно добавлено приложение: {app_data['name']}")
+            
+        except Exception as e:
+            print(f"Ошибка при добавлении приложения {app_data.get('name', 'Unknown')}: {e}")
+
+# Предполагаемые модели (добавьте в models.py если их нет)
+"""
+class AppScreenshot(models.Model):
+    app = models.ForeignKey(App, on_delete=models.CASCADE, related_name='screenshots')
+    image = models.ImageField(upload_to='app_screenshots/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Screenshot for {self.app.name}"
+"""
