@@ -111,7 +111,7 @@ class App(models.Model):
 class AppEstimation(models.Model):
     app = models.ForeignKey(App, models.CASCADE)
     """App that is estimated."""
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE, blank=True)
     """User that left the estimation."""
     estimation = models.PositiveSmallIntegerField()
     """Estimation from 0.0 to 5.0."""

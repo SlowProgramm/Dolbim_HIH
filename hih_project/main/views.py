@@ -50,10 +50,10 @@ def apps_view(request: HttpRequest) -> HttpResponse:
 def app_detail_view(request: HttpRequest, app_id: str)-> HttpResponse:
     try:
         app = App.objects.get(id=app_id)
-        context = {
-            'app': app
-        }
-        return render(request, 'app_detail.html', context)
+        return render(request, 'app_detail.html', {
+            'app': app,
+            'estimations': AppEstimation.objects.filter(app=app)
+        })
     except App.DoesNotExist:
         return render(request, '404.html', status=404)
     
