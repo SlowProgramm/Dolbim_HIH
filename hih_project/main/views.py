@@ -1,4 +1,5 @@
 from uuid import uuid6
+from uuid import uuid6
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
 from django.utils import timezone
@@ -139,13 +140,16 @@ def login_view(request: HttpRequest) -> HttpResponse:
 def account_view(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         create_app(request)
-    return render(request, 'account.html')
+    return render(request, 'account.html', {'user_estimations': request.user.query_apps_estimations()})
 
 
 def apps_view(request: HttpRequest) -> HttpResponse:
+    if request.user.is_authenticated:
+        pass
+
     return render(request, 'apps.html', {
         'popular_apps': App.objects.order_by('-rating', '-downloads').all(),
-        'user_top_10_apps': request.user.get_personal_top_10_apps()
+
     })
 
 
