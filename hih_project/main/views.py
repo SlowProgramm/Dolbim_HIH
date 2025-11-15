@@ -6,7 +6,7 @@ from .models import *
 from .forms import *
 
 def index_view(request: HttpRequest) -> HttpResponse:
-    return render(request, 'hello.html', {'title':'Главная'})
+    return render(request, 'index.html', {'title':'Главная'})
 
 
 def about_view(request: HttpRequest) -> HttpResponse:

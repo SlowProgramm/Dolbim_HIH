@@ -22,8 +22,8 @@
                 <h4 class="siteName">RuStore</h4>
             </a>
             <nav class="menu">
-                <a href="{% url 'home' %}"><h3 class="nav">Каталог</h3></a>
-                <a href="{% url 'about' %}"><h3 class="nav">Категории</h3></a>
+                <a href="{% url 'apps' %}" class="noDec"><h3 class="nav">Каталог</h3></a>
+                <a href="{% url 'category_list' %}" class="noDec"><h3 class="nav">Категории</h3></a>
             </nav>
             <button name="search" class="searchBtn"><img src="{% static 'src/поиск2.png' %}" class="searchBtnIcon">Поиск</button>
         </div>
