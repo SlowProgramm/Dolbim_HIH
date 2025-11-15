@@ -5,22 +5,13 @@ from django.contrib.auth import login, authenticate
 from .models import *
 from .forms import *
 
+def index_view(request: HttpRequest) -> HttpResponse:
+    return render(request, 'hello.html', {'title':'Главная'})
+
 
 def about_view(request: HttpRequest) -> HttpResponse:
     return render(request, 'about.html')
 
-def create_view(request: HttpRequest) -> HttpResponse:
-    if request.method == "POST":
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            form.save()
-            redirect('home')
-
-    form = TaskForm()
-    context = {
-        'form':form
-        }
-    return render(request, 'create.html', context)
 
 def signup_view(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
@@ -32,6 +23,7 @@ def signup_view(request: HttpRequest) -> HttpResponse:
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
 
 def login_view(request: HttpRequest) -> HttpResponse:
     form = LoginForm(data=request.POST or None)
@@ -45,12 +37,15 @@ def login_view(request: HttpRequest) -> HttpResponse:
                 return redirect('account')
     return render(request, 'login.html', {'form': form})
 
+
 def account_view(request: HttpRequest) -> HttpResponse:
     return render(request, 'account.html')
+
 
 def apps_view(request: HttpRequest) -> HttpResponse:
     apps = App.objects.all()
     return render(request, 'apps.html', {'apps': apps})
+
 
 def app_detail_view(request: HttpRequest, app_id:int)-> HttpResponse:
     try:
@@ -62,9 +57,11 @@ def app_detail_view(request: HttpRequest, app_id:int)-> HttpResponse:
     except App.DoesNotExist:
         return render(request, '404.html', status=404)
     
+
 def categories_view(request):
     categories = AppCategory.objects.prefetch_related('appsubcategory_set').all()
     return render(request, 'category_list.html', {'categories': categories})
+
 
 def apps_for_category_view(request):
     category_id = request.GET.get('category')
@@ -76,6 +73,7 @@ def apps_for_category_view(request):
     elif category_id:
         apps = apps.filter(subcategory__category_id=category_id)
     return render(request, 'apps.html', {'apps': apps})
+
 
 def apps_for_category_view(request: HttpRequest) -> HttpResponse:
     subcategory_id = request.GET.get('subcategory')
