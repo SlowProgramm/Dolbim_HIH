@@ -1,16 +1,105 @@
 {% extends 'base.html'%}
+{% load static %}
 {% block title%}
-О нас
+{{title}}
 {% endblock %}
 
 {% block content %}
-    <main class="main-content">
-        <div class="content-section">
-            <h1>ОПИСАНИЕ САЙТА</h1>
-            <p>Это пример контента страницы. Header остается одинаковым на всех страницах.</p>
-            <p>Просто скопируйте код header в каждую HTML-страницу вашего проекта.</p>
+<div id="hello_page_preloader">
+        <div class="hello_page_logo-container">
+            <img src="{% static 'rustore6880.png' %}" alt="Логотип" class="logo" width="600" height="200">
+            <div class="logo-text"><h1>Добро пожаловать</h1></div>
         </div>
+    </div>
+<main class="main-content">
+    
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <h1>Не будь говном - пользуйся говном</h1>
+                </td>
+                <td>
+                    <a href="signup/" class="btn btn_link_to_signup">Зарегаться</a>
+                </td>
+            </tr>
+                
+        </table>
+    </div>
 
-   
-    </main>
+
+    <div class="frame_of_fast_categories">
+        <h2>Отдыхайте с кайфом</h2>
+        <a href="/categories" class="btn btn_link_to_category">Аркады</a>
+        <a href="/categories" class="btn btn_link_to_category">Головоломки</a>
+        <a href="/categories" class="btn btn_link_to_category">Шутеры</a>
+        <a href="/categories" class="btn btn_link_to_category">Экшен</a>
+    </div>
+
+
+    <div>
+    <table>
+        <tr>
+            <td>
+                <h1>Гарантия безопасности</h1>
+                <p>Проверка приложений модерзацией и антивирусом</p>
+            </td>
+            <td>
+                <h1>Удобная оплата подписок и покупок</h1>
+                <p>Платите картой, по СБП, с банника телефона и не только</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <h1>Доступ к приложениям без ограничений</h1>
+                <p>Все пред рукой — от мобильных банков до игровых китов</p>
+            </td>
+            <td>
+                <h1>Наведите камеру для загрузки RuStore</h1>
+                <p>Поддерживаются устройства от android 8.0 же.</p>
+                <p>Harmony OS 3</p>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <div class="frame_of_fast_categories">
+        <h2>Найдите что-то полезное и для себя</h2>
+        <a href="/categories" class="btn btn_link_to_category">Финансы</a>
+        <a href="/categories" class="btn btn_link_to_category">Хуянсы</a>
+        <a href="/categories" class="btn btn_link_to_category">Лотереи</a>
+        <a href="/categories" class="btn btn_link_to_category">Инструменты</a>
+    </div>
+
+</main>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const preloader = document.getElementById('hello_page_preloader');
+            const logoContainer = document.querySelector('.hello_page_logo-container');
+            
+            // Показываем логотип с анимацией
+            setTimeout(function() {
+                preloader.classList.add('hello_page_show-logo');
+            }, 100);
+            
+            // После появления логотипа ждем и переходим к контенту
+            setTimeout(function() {
+                document.body.classList.add('hello_page_loaded');
+                
+                // Удаляем прелоадер из DOM после анимации
+                setTimeout(function() {
+                    if (preloader) {
+                        preloader.remove();
+                    }
+                }, 1000);
+            }, 2500); // Общее время показа прелоадера (2.5 секунды)
+        });
+    </script>
+
+    <div class="hbody">
+        <h1 class="store">Официальный российский магазин приложений для Android</h1>
+        <p class="text">Безопасный доступ к популярным играм и приложениям</p>
+    </div>
 {% endblock %}
