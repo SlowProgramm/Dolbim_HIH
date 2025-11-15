@@ -9,7 +9,7 @@
 <div class="catalog">
 
     <!-- БЛОК "ИНТЕРЕСНОЕ" -->
-    <section class="catalog__section">
+    <!-- <section class="catalog__section">
         <h1 class="catalog__section-title">Интересное</h1>
 
         <div class="featured-list">
@@ -17,17 +17,17 @@
             <div class="featured-card"></div>
             <div class="featured-card"></div>
         </div>
-    </section>
+    </section> -->
 
     <!-- БЛОК "ТОП 10 СВОЕЙ СВАГИ" -->
     {% if user_top_10_apps %}
         <section class="catalog__section">
             <h1 class="catalog__section-title">Для вас</h1>
 
-            <div class="app-grid">
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
                 {% for app in user_top_10_apps %}
                 <div class="app-grid__item">
-                    <a href="{% url 'app_detail' app_id=app.id %}" class="app-card">
+  <a href="{% url 'app_detail' app_id=app.id %}" style="display: flex; align-items: center; width: 100%; min-height: 120px; padding: 14px; border-radius: 18px; background: #FBFAFF; text-decoration: none; box-shadow: 0 6px 14px rgba(84, 77, 223, 0.1); border: 2px solid transparent; transition: all 0.35s ease;">
 
                         <img src="{{ app.icon.url }}" alt="" class="app-card__icon">
 
@@ -37,7 +37,7 @@
 
                             <div class="app-card__rating">
                                 <img src="{% static 'src/star.png' %}" class="app-card__rating-star" alt="">
-                                <p class="app-card__rating-value">{{ app.rating }}</p>
+                                <p style="font-size: 16px; color: #A393FF; margin: 0;">{{ app.rating }}</p>
                             </div>
                         </div>
 
@@ -52,10 +52,13 @@
     <section class="catalog__section">
         <h1 class="catalog__section-title">Топ приложений</h1>
 
+
+
+
         <div class="app-grid">
             {% for app in popular_apps %}
             <div class="app-grid__item">
-                <a href="{% url 'app_detail' app_id=app.id %}" class="app-card">
+                  <a href="{% url 'app_detail' app_id=app.id %}" style="display: flex; align-items: center; width: 100%; min-height: 120px; padding: 14px; border-radius: 18px; background: #FBFAFF; text-decoration: none; box-shadow: 0 6px 14px rgba(84, 77, 223, 0.1); border: 2px solid transparent; transition: all 0.35s ease;">
 
                     <img src="{{ app.icon.url }}" alt="" class="app-card__icon">
 
