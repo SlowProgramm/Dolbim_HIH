@@ -18,15 +18,12 @@
         
         <div class="app_detail_page_info">
             <h1 class="app_detail_page_title">{{ app.name }}</h1>
-            <a href="{% url 'developer' dev_id=app.developer.id %}" class="app_detail_page_developer">{{ app.developer.name }}</a>
-            
+            <a href="{% url 'developer' dev_id=app.developer.id %}" class="app_detail_page_developer">Разработчик: <span style="color:slateblue"><b>{{ app.developer.name }}</b></span> </a>
+            <br><br>
             <div class="app_detail_page_meta">
-                <div class="app_detail_page_rating">
-                    ⭐ {{ app.rating|floatformat:1 }} <span>({{ app.estimations_count }})</span>
-                </div>
-                <div class="app_detail_page_downloads">📥 {{ app.downloads }}</div>
-                <div class="app_detail_page_size">{{ app.size|filesizeformat }}</div>
-                <div class="app_detail_page_age">{{ app.age_rating.name }}+</div>
+                <div class="app_detail_page_rating">Рейтинг: {{ app.rating|floatformat:1 }} <span>({{ app.estimations_count }})</span></div>
+                <div class="app_detail_page_downloads">Скачиваний: {{ app.downloads }}</div>
+                <div class="app_detail_page_size">Вес: {{ app.size|filesizeformat }}</div>
             </div>
             
             <button class="app_detail_page_download_btn">Скачать бесплатно</button>
