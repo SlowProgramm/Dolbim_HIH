@@ -6,11 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock %}</title>
-
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-     <link rel="stylesheet" href="{% static 'glb.css' %}">
+     <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'glb.css' %}">
     <link rel="stylesheet" href="{% static 'base.css' %}">
-    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <link rel="stylesheet" href="{% static 'hello.css' %}">
     <link rel="stylesheet" href="{% static 'catalog.css' %}">
 </head>
 
@@ -26,7 +25,7 @@
                 <a href="{% url 'apps' %}" class="noDec"><h3 class="nav">Каталог</h3></a>
                 <a href="{% url 'categories' %}" class="noDec"><h3 class="nav">Категории</h3></a>
             </nav>
-            <button name="search" class="searchBtn"><img src="{% static 'src/поиск2.png' %}" class="searchBtnIcon">Поиск</button>
+            <button></button>
         </div>
     </header>
 

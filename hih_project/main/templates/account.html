@@ -8,10 +8,19 @@
 
 
 {% block content %}
+<button></button>  
 <div class="account_page-container">
     
 <br><br><br>
     <div class="account_page-content">
+
+
+        <form method="post" action="{% url 'account' %}">
+            {% csrf_token %}
+            <button type="submit" class="account_page-button account_page-button-primary">
+                🚀 Создать тестовое приложение
+            </button>
+        </form>
         {% if user.is_authenticated %}
         <!-- Шапка профиля -->
         <div class="account_page-header">
