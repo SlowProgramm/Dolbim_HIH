@@ -101,8 +101,6 @@ class App(models.Model):
     """Amount of estimations."""
     downloads = models.PositiveBigIntegerField(editable=False, default=0)
     """Amount of unique downloads."""
-    views = models.PositiveBigIntegerField(editable=False, default=0)
-    """Amount of unique views."""
 
     def __str__(self) -> str:
         return f'App(name={self.name})'

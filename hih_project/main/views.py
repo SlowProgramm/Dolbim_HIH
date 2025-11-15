@@ -1,6 +1,7 @@
  
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
+from django.utils import timezone
 from django.contrib.auth import login, authenticate
 from datetime import datetime
 from .models import *
@@ -43,14 +44,14 @@ def account_view(request: HttpRequest) -> HttpResponse:
     return render(request, 'account.html', {
         'user_estimations': AppEstimation.objects.filter(author=request.user) if request.user.is_authenticated else []
     })
-# 1f0c21f473486919adbdc8a3e85c8776
+
 
 def apps_view(request: HttpRequest) -> HttpResponse:
     apps = App.objects.all()
     return render(request, 'apps.html', {'apps': apps})
 
 
-def app_detail_view(request: HttpRequest, app_id: str)-> HttpResponse:
+def app_detail_view(request: HttpRequest, app_id: str) -> HttpResponse:
     try:
         app = App.objects.get(id=app_id)
     except App.DoesNotExist:
@@ -60,6 +61,8 @@ def app_detail_view(request: HttpRequest, app_id: str)-> HttpResponse:
         estimation = AppEstimation.objects.get(author=request.user, app=app)
     except AppEstimation.DoesNotExist:
         estimation = None
+
+    
     
     if request.method == 'POST':
         form = EstimationForm(request.POST)
@@ -72,14 +75,14 @@ def app_detail_view(request: HttpRequest, app_id: str)-> HttpResponse:
 
                 estimation.estimation = form_estimation
                 estimation.content = form_estimation_content
-                estimation.published_at = datetime.now()
+                estimation.published_at = timezone.now()
                 estimation.save()
             else:
                 estimation = AppEstimation.objects.create(
                     app=app,
                     author=request.user,
                     estimation=form_estimation,
-                    published_at=datetime.now(),
+                    published_at=timezone.now(),
                     content=form_estimation_content
                 )
 
