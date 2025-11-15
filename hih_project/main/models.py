@@ -1,5 +1,10 @@
 from django.db.models import CharField, TextField, Model, IntegerField, PositiveBigIntegerField, FloatField, ImageField, DateTimeField, ForeignKey, CASCADE, PROTECT
 from django.contrib.auth.models import User
+from uuid import uuid6
+
+def generate_id() -> str:
+    return uuid6().hex
+
 
 def icon_path(_, filename: str) -> str:
     return f'icons/{filename}'
@@ -66,6 +71,7 @@ class AppDeveloper(Model):
         return f'AppDeveloper(name={self.name})'
 
 class App(Model):
+    id: TextField = TextField(editable=False, primary_key=True, default=generate_id)
     name: CharField = CharField(max_length=256)
     """App name."""
     description: TextField = TextField()

@@ -1178,3 +1178,241 @@ body {
         gap: 8px;
     }
 }
+
+/* Signup Page */
+.signup_page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.signup_page_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 25px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Левая часть - оформление */
+.signup_page_decor {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 60px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.signup_page_decor::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+}
+
+.signup_page_decor_content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.signup_page_decor_title {
+    font-size: 2.5em;
+    margin: 0 0 15px 0;
+    color: white;
+    font-weight: bold;
+}
+
+.signup_page_decor_subtitle {
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 30px 0;
+}
+
+.signup_page_decor_icon {
+    font-size: 4em;
+    animation: signup_page_float 3s ease-in-out infinite;
+}
+
+@keyframes signup_page_float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Правая часть - форма */
+.signup_page_form_section {
+    padding: 60px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup_page_form_container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.signup_page_form_title {
+    font-size: 2em;
+    margin: 0 0 10px 0;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.signup_page_form_subtitle {
+    font-size: 1em;
+    color: #b0b0b0;
+    margin: 0 0 40px 0;
+    text-align: center;
+}
+
+/* Форма */
+.signup_page_form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.signup_page_form_group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.signup_page_form_label {
+    font-size: 0.9em;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.signup_page_form_input {
+    padding: 15px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.signup_page_form_input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.signup_page_form_input::placeholder {
+    color: #b0b0b0;
+}
+
+.signup_page_form_help {
+    font-size: 0.8em;
+    color: #6bcf7f;
+    margin-top: 5px;
+}
+
+/* Ошибки */
+.signup_page_form_error {
+    font-size: 0.8em;
+    color: #ff6b6b;
+    margin-top: 5px;
+    padding: 8px 12px;
+    background: rgba(255, 107, 107, 0.1);
+    border-radius: 8px;
+    border-left: 3px solid #ff6b6b;
+}
+
+.signup_page_form_error_general {
+    margin-top: 10px;
+}
+
+/* Кнопка отправки */
+.signup_page_form_submit {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 18px 30px;
+    border-radius: 12px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.signup_page_form_submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.signup_page_form_submit_icon {
+    transition: transform 0.3s ease;
+}
+
+.signup_page_form_submit:hover .signup_page_form_submit_icon {
+    transform: translateX(3px);
+}
+
+.signup_page_form_submit_text {
+    color: white;
+}
+
+/* Футер формы */
+.signup_page_form_footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #b0b0b0;
+}
+
+.signup_page_form_link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signup_page_form_link:hover {
+    text-decoration: underline;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .signup_page_container {
+        grid-template-columns: 1fr;
+    }
+    
+    .signup_page_decor {
+        padding: 40px 20px;
+    }
+    
+    .signup_page_form_section {
+        padding: 40px 20px;
+    }
+    
+    .signup_page_decor_title {
+        font-size: 2em;
+    }
+    
+    .signup_page_form_title {
+        font-size: 1.8em;
+    }
+}
