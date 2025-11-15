@@ -48,7 +48,7 @@ class AppCategory(Model):
     icon: ImageField = ImageField(blank=True, upload_to=icon_path)
 
     def __str__(self) -> str:
-        return f'{self.id}'
+        return f'Категория {self.name}'
 
 
 class AppSubcategory(Model):
