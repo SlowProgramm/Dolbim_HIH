@@ -19,6 +19,34 @@
         </div>
     </section>
 
+    <!-- БЛОК "ТОП 10 СВОЕЙ СВАГИ" -->
+    {% if user_top_10_apps %}
+        <section class="catalog__section">
+            <h1 class="catalog__section-title">Для вас</h1>
+
+            <div class="app-grid">
+                {% for app in user_top_10_apps %}
+                <div class="app-grid__item">
+                    <a href="{% url 'app_detail' app_id=app.id %}" class="app-card">
+
+                        <img src="{{ app.icon.url }}" alt="" class="app-card__icon">
+
+                        <div class="app-card__info">
+                            <h2 class="app-card__title">{{ app.name }}</h2>
+                            <p class="app-card__category">{{ app.subcategory.name }}</p>
+
+                            <div class="app-card__rating">
+                                <img src="{% static 'src/star.png' %}" class="app-card__rating-star" alt="">
+                                <p class="app-card__rating-value">{{ app.rating }}</p>
+                            </div>
+                        </div>
+
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
 
     <!-- БЛОК "ТОП ПРИЛОЖЕНИЙ" -->
     <section class="catalog__section">

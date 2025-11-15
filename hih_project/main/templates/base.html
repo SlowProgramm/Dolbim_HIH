@@ -39,9 +39,15 @@
                 Поиск
             </button>
 
-            <a href="/signup" class="user-link">
-                <img src="{% static 'src/avatar.png' %}" class="user" alt="">
-            </a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'account' %}" class="user-link">
+                    <img src="{% static 'src/avatar.png' %}" class="user" alt="">
+                </a>
+            {% else %}
+                <a href="{% url 'signup' %}" class="user-link">
+                    <img src="{% static 'src/avatar.png' %}" class="user" alt="">
+                </a>
+            {% endif %}
         </div>
     </div>
 </header>

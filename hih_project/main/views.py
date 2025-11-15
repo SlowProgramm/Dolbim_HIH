@@ -143,12 +143,9 @@ def account_view(request: HttpRequest) -> HttpResponse:
 
 
 def apps_view(request: HttpRequest) -> HttpResponse:
-    if request.user.is_authenticated:
-        pass
-
     return render(request, 'apps.html', {
         'popular_apps': App.objects.order_by('-rating', '-downloads').all(),
-
+        'user_top_10_apps': request.user.get_personal_top_10_apps()
     })
 
 
