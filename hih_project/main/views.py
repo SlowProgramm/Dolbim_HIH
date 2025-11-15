@@ -94,7 +94,7 @@ def apps_for_category_view(request: HttpRequest) -> HttpResponse:
     return render(request, 'app_for_category.html', context)
 
 
-def developer_view(request: HttpRequest, dev_id:int) -> HttpResponse:
+def developer_view(request: HttpRequest, dev_id: str) -> HttpResponse:
     name = request.GET.get('name')
     try:
         dev = AppDeveloper.objects.get(id=dev_id)

@@ -1,49 +1,35 @@
 {% extends 'base.html'%}
 {% block title%}
-Библиотека приложений
+Каталог
 {% endblock %}
 
-
-
 {% block content %}
-    <div class="apps_page_background">
-        <br><br><br><br><br><br><br>
-        <a href="{% url 'category_list' %}" class="apps_page_button">Все категории</a>
-
-        <h1 class="apps_page_title_main">Каталог игр</h1>
-        {% if apps %}
-        <div class="apps_page_grid">
-
-            {% for el in apps %}
-            <!-- Вся карточка становится ссылкой -->
-             <a href="{% url 'app_detail' app_id=el.id %}" class="apps_page_card_link">
-                <div class="apps_page_card">
-
-                    <!-- Иконка -->
-                     <div class="apps_page_icon">
-                        {% if el.icon %}
-                             <img src="{{ el.icon.url }}" alt="{{ el.name }}" class="apps_page_icon_style">
-                        {% else %}
-                            <div class="">📱</div>
-                        {% endif %}
+<div class="cbody">
+    <div>
+        <h1 class="title">Интересное</h1>
+        <div class="content">
+            <div class="gameInt"></div>
+            <div class="gameInt"></div>
+            <div class="gameInt"></div>
+        </div>
+    </div>
+    <div>
+        <h1 class="title">Топ приложений</h1>
+        <div class="content">
+            {% for app in apps %}
+            <a href="{% url 'app_detail' app_id=app.id %}" class="gameTop">
+                <img src="{{ app.icon.url }}" class="gameLogo">
+                <div class="info">
+                    <h2 class="appTitle">{{ app.name }}</h2>
+                    <p class="description">{{ app.description }}</p>
+                    <div class="rating">
+                        <img src="" class="star">
+                        <p>{{ app.rating }}</p>
                     </div>
-
-                    <!-- Информация -->
-                    <div class="apps_page_info">
-                        <div class="apps_page_title">{{ el.name }}</div>
-                        <div class="apps_page_desc">{{ el.subcategory.name }}</div>
-                        <div class="apps_page_rating">
-                            ⭐ {{ el.rating }}
-                        </div>
-                    </div>
-
                 </div>
             </a>
             {% endfor %}
-
         </div>
-        {% else %}
-        <h1>Нет приложений</h1>
-        {% endif %}
     </div>
+</div>
 {% endblock %}
