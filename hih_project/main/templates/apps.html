@@ -5,6 +5,7 @@
 
 {% block content %}
 <div class="cbody">
+    <br><br><br>
     <div>
         <h1 class="title">Интересное</h1>
         <div class="content">
@@ -21,7 +22,7 @@
                 <img src="{{ app.icon.url }}" class="gameLogo">
                 <div class="info">
                     <h2 class="appTitle">{{ app.name }}</h2>
-                    <p class="description">{{ app.description }}</p>
+                    <p class="description">{{ app.subcategory.name }}</p>
                     <div class="rating">
                         <img src="" class="star">
                         <p>{{ app.rating }}</p>

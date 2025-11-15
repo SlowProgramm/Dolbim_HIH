@@ -1573,3 +1573,270 @@ body {
             font-size: 24px;
         }
     }
+
+.account_page-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 40px 20px;
+    color: #333; /* Основной цвет текста */
+}
+
+.account_page-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.account_page-header {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    color: #333; /* Цвет текста для header */
+}
+
+.account_page-welcome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.account_page-user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.account_page-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #667eea;
+}
+
+.account_page-avatar-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.account_page-user-details h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.account_page-user-email {
+    color: #666;
+    font-size: 16px;
+}
+
+.account_page-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.account_page-stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    color: #333; /* Цвет текста для карточек статистики */
+}
+
+.account_page-stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.account_page-stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 8px;
+}
+
+.account_page-stat-label {
+    color: #666;
+    font-size: 14px;
+}
+
+.account_page-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.account_page-section {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    color: #333; /* Цвет текста для секций */
+}
+
+.account_page-section-title {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.account_page-apps-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.account_page-app-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid #e1e5e9;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background: white;
+    color: #333; /* Цвет текста для карточек приложений */
+}
+
+.account_page-app-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.2);
+}
+
+.account_page-app-icon-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 20px;
+    border: 1px solid #e1e5e9;
+}
+
+.account_page-app-info {
+    flex: 1;
+}
+
+.account_page-app-name {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.account_page-app-category {
+    color: #666;
+    font-size: 14px;
+}
+
+.account_page-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.account_page-button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+}
+
+.account_page-button-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.account_page-button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.account_page-button-secondary {
+    background: #f8f9fa;
+    color: #333;
+    border: 1px solid #e1e5e9;
+}
+
+.account_page-button-secondary:hover {
+    background: #e9ecef;
+}
+
+.account_page-empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666; /* Цвет текста для пустых состояний */
+}
+
+.account_page-empty-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #999;
+}
+
+/* Явно задаем цвета для всех текстовых элементов */
+.account_page-container p,
+.account_page-container h1,
+.account_page-container h2,
+.account_page-container h3,
+.account_page-container div,
+.account_page-container span {
+    color: #333;
+}
+
+/* Для специальных случаев с светлым текстом */
+.account_page-button-primary,
+.account_page-avatar-placeholder {
+    color: white !important;
+}
+
+@media (max-width: 768px) {
+    .account_page-container {
+        padding: 20px 15px;
+    }
+    
+    .account_page-header {
+        padding: 20px;
+    }
+    
+    .account_page-user-info {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .account_page-welcome {
+        justify-content: center;
+    }
+    
+    .account_page-sections {
+        grid-template-columns: 1fr;
+    }
+    
+    .account_page-stats {
+        grid-template-columns: 1fr;
+    }
+}

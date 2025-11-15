@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 from main.views import *
 
 urlpatterns = [
@@ -15,6 +16,7 @@ urlpatterns = [
     path('categories/', categories_view, name='categories'),
     path('app_for_category/', apps_for_category_view, name='app_for_category'),
     path('developer/<str:dev_id>/', developer_view, name='developer'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
 ]
 
 if settings.DEBUG:

@@ -1,20 +1,145 @@
 {% extends 'base.html'%}
-{% block title%}
-О нас
+{% load static %}
+
+{% block title %}
+Личный кабинет
 {% endblock %}
 
+
+
 {% block content %}
-    <main class="main-content">
-        <div class="content-section">
-            <h1>ОПИСАНИЕ САЙТА</h1>
-            <p>Это пример контента страницы. Header остается одинаковым на всех страницах.</p>
-            <p>Просто скопируйте код header в каждую HTML-страницу вашего проекта.</p>
-        </div>
+<div class="account_page-container">
+    
+<br><br><br>
+    <div class="account_page-content">
         {% if user.is_authenticated %}
-    <p>Добро пожаловать, {{ user.username }}!</p>
-{% else %}
-    <p>Вы не авторизованы</p>
-{% endif %}
-   
-    </main>
+        <!-- Шапка профиля -->
+        <div class="account_page-header">
+            <div class="account_page-welcome">
+                <div class="account_page-user-info">
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="Аватар" class="account_page-avatar">
+                    {% else %}
+                        <div class="account_page-avatar-placeholder">
+                            {{ user.username|first|upper }}
+                        </div>
+                    {% endif %}
+                    <div class="account_page-user-details">
+                        <h1>Добро пожаловать, {{ user.username }}!</h1>
+                        <p class="account_page-user-email">{{ user.email }}</p>
+                    </div>
+                </div>
+                <div class="account_page-actions">
+                    <a href="{% url 'logout' %}" class="account_page-button account_page-button-secondary">Выйти</a>
+                </div>
+            </div>
+            
+            <!-- Статистика -->
+            <div class="account_page-stats">
+                <div class="account_page-stat-card">
+                    <div class="account_page-stat-number">{{ user.bought_apps|length }}</div>
+                    <div class="account_page-stat-label">Купленные приложения</div>
+                </div>
+                <div class="account_page-stat-card">
+                    <div class="account_page-stat-number">{{ user.estimations|length }}</div>
+                    <div class="account_page-stat-label">Оставленные оценки</div>
+                </div>
+                <div class="account_page-stat-card">
+                    <div class="account_page-stat-number">{{ user.achievements|length }}</div>
+                    <div class="account_page-stat-label">Достижения</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основные разделы -->
+        <div class="account_page-sections">
+            <!-- Купленные приложения -->
+            <div class="account_page-section">
+                <h2 class="account_page-section-title">Купленные приложения</h2>
+                <div class="account_page-apps-grid">
+                    {% if user.bought_apps %}
+                        {% for app_id in user.bought_apps %}
+                        <div class="account_page-app-card">
+                            <div class="account_page-app-icon-placeholder"></div>
+                            <div class="account_page-app-info">
+                                <div class="account_page-app-name">Приложение #{{ forloop.counter }}</div>
+                                <div class="account_page-app-category">ID: {{ app_id }}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="account_page-empty-state">
+                            <div class="account_page-empty-icon">📱</div>
+                            <p>У вас пока нет купленных приложений</p>
+                            <a href="{% url 'apps' %}" class="account_page-button account_page-button-primary" style="margin-top: 15px;">
+                                Найти приложения
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Достижения -->
+            <div class="account_page-section">
+                <h2 class="account_page-section-title">Достижения</h2>
+                <div class="account_page-apps-grid">
+                    {% if user.achievements %}
+                        {% for achievement in user.achievements %}
+                        <div class="account_page-app-card">
+                            <div class="account_page-app-icon-placeholder" style="background: #ffd700;"></div>
+                            <div class="account_page-app-info">
+                                <div class="account_page-app-name">Достижение #{{ forloop.counter }}</div>
+                                <div class="account_page-app-category">ID: {{ achievement }}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="account_page-empty-state">
+                            <div class="account_page-empty-icon">🏆</div>
+                            <p>Достижения пока не получены</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Оценки -->
+            <div class="account_page-section">
+                <h2 class="account_page-section-title">Ваши оценки</h2>
+                <div class="account_page-apps-grid">
+                    {% if user.estimations %}
+                        {% for estimation in user.estimations %}
+                        <div class="account_page-app-card">
+                            <div class="account_page-app-icon-placeholder" style="background: #4CAF50;"></div>
+                            <div class="account_page-app-info">
+                                <div class="account_page-app-name">Оценка #{{ forloop.counter }}</div>
+                                <div class="account_page-app-category">Рейтинг: {{ estimation.rating }}/5</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="account_page-empty-state">
+                            <div class="account_page-empty-icon">⭐</div>
+                            <p>Вы еще не оставляли оценок</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <!-- Сообщение для неавторизованных пользователей -->
+        <div class="account_page-header">
+            <div class="account_page-empty-state">
+                <div class="account_page-empty-icon">🔒</div>
+                <h2>Вы не авторизованы</h2>
+                <p>Для доступа к личному кабинету необходимо войти в систему</p>
+                <div class="account_page-actions" style="justify-content: center;">
+                    <a href="{% url 'login' %}" class="account_page-button account_page-button-primary">Войти</a>
+                    <a href="{% url 'signup' %}" class="account_page-button account_page-button-secondary">Зарегистрироваться</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
