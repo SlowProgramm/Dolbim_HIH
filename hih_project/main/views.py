@@ -47,7 +47,7 @@ def apps_view(request: HttpRequest) -> HttpResponse:
     return render(request, 'apps.html', {'apps': apps})
 
 
-def app_detail_view(request: HttpRequest, app_id:int)-> HttpResponse:
+def app_detail_view(request: HttpRequest, app_id: str)-> HttpResponse:
     try:
         app = App.objects.get(id=app_id)
         context = {
