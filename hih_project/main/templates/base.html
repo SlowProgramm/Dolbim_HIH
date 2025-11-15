@@ -17,13 +17,13 @@
 <body class="body">
     <header class="header">
         <div style="display: flex; align-items: center;">
-            <a href="index.html" class="logo">
+            <a href="{% url 'index' %}" class="logo noDec">
                 <img src="{% static 'src/RuStore_logo.png' %}" class="logoImg">
                 <h4 class="siteName">RuStore</h4>
             </a>
             <nav class="menu">
                 <a href="{% url 'apps' %}" class="noDec"><h3 class="nav">Каталог</h3></a>
-                <a href="{% url 'category_list' %}" class="noDec"><h3 class="nav">Категории</h3></a>
+                <a href="{% url 'categories' %}" class="noDec"><h3 class="nav">Категории</h3></a>
             </nav>
             <button name="search" class="searchBtn"><img src="{% static 'src/поиск2.png' %}" class="searchBtnIcon">Поиск</button>
         </div>
@@ -38,10 +38,7 @@
 
 <div class="header-container">
     <nav class="menu">
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="{% url 'home' %}" class="nav-link active">Все Tasks</a></li>
-                    <li><a href="{% url 'about' %}" class="nav-link">О нас</a></li>
-                    
+                <ul class="nav-menu" id="navMenu">                    
                     <div class="auth-buttons">
                         <a href="{% url 'login' %}" class="btn btn-login">Войти</a>
                         <a href="{% url 'signup' %}" class="btn btn-signup">Регистрация</a>
