@@ -14,38 +14,17 @@
         </div>
     </div>
     <div>
-        <h1 class="title">Топ игр</h1>
+        <h1 class="title">Топ приложений</h1>
         <div class="content">
+            {% for app in apps %}
             <div class="gameTop">
                 <img src="" class="gameLogo">
                 <div class="info">
-                    <h2 class="appTitle">Название</h2>
-                    <p class="description">Описание</p>
+                    <h2 class="appTitle">{{ app.name }}</h2>
+                    <p class="description">{{ app.description }}</p>
                     <div class="rating">
                         <img src="" class="star">
-                        <p>5.0</p>
-                    </div>
-                </div>
-            </div>
-            <div class="gameTop">
-                <img src="" class="gameLogo">
-                <div class="info">
-                    <h2 class="appTitle">Название</h2>
-                    <p class="description">Описание</p>
-                    <div class="rating">
-                        <img src="" class="star">
-                        <p>5.0</p>
-                    </div>
-                </div>
-            </div>
-            <div class="gameTop">
-                <img src="" class="gameLogo">
-                <div class="info">
-                    <h2 class="appTitle">Название</h2>
-                    <p class="description">Описание</p>
-                    <div class="rating">
-                        <img src="" class="star">
-                        <p>5.0</p>
+                        <p>{{ app.rating }}</p>
                     </div>
                 </div>
             </div>
