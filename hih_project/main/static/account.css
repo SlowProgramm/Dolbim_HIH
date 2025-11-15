@@ -1,0 +1,216 @@
+/* ===== ACCOUNT BASE ===== */
+
+.acc-container,
+.acc-container * {
+    color: #2c2c2c;
+}
+
+.acc-container {
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.acc-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ===== HEADER ===== */
+
+.acc-header {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+
+.acc-user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.acc-user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.acc-avatar,
+.acc-avatar-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.acc-avatar-placeholder {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    font-weight: bold;
+}
+
+.acc-user-details h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+.acc-user-details p {
+    color: #666;
+}
+
+/* ===== BUTTONS ===== */
+
+.acc-btn {
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    display: inline-block;
+    transition: .25s;
+}
+
+.acc-add-game-btn {
+    margin: 20px 0 ;
+}
+
+.acc-btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+}
+
+.acc-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+}
+
+.acc-btn-secondary {
+    background: #f4f4f6;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.acc-btn-secondary:hover {
+    background: #e8e8ec;
+}
+
+/* ===== STATS ===== */
+
+.acc-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.acc-stat {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+    transition: .25s;
+}
+
+.acc-stat-num {
+    font-size: 30px;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 5px;
+}
+
+.acc-stat-label {
+    color: #666;
+}
+
+/* ===== SECTIONS ===== */
+
+.acc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+    gap: 25px;
+}
+
+.acc-section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+.acc-section-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+/* ===== CARDS / GRID ===== */
+
+.acc-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.acc-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid #eee;
+    transition: .25s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.acc-card:hover {
+    border-color: #667eea;
+    box-shadow: 0px 3px 12px rgba(102,126,234,0.25);
+}
+
+.acc-card-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 10px;
+    background: #f3f3f6;
+    object-fit: cover;
+}
+
+.acc-card-name {
+    font-weight: 600;
+}
+
+.acc-card-meta {
+    font-size: 14px;
+    color: #777;
+}
+
+/* ===== EMPTY ===== */
+
+.acc-empty {
+    text-align: center;
+    padding: 40px 10px;
+}
+
+.acc-empty-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .acc-user {
+        flex-direction: column;
+        text-align: center;
+    }
+}

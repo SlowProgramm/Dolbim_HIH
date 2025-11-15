@@ -5,82 +5,83 @@
 Личный кабинет
 {% endblock %}
 
-
-
 {% block content %}
-<button></button>  
-<button></button>  
-<div class="account_page-container">
-    
-<br><br><br>
-    <div class="account_page-content">
-        <form method="post" action="{% url 'account' %}">
+<div class="acc-container">
+    <div class="acc-content">
+
+        <form method="post" action="{% url 'account' %}" class="acc-add-game-btn">
             {% csrf_token %}
-            <button type="submit" class="account_page-button account_page-button-primary">
+            <button type="submit" class="acc-btn acc-btn-primary">
                 🚀 Создать тестовое приложение
             </button>
         </form>
-        
+
         {% if user.is_authenticated %}
-        <!-- Шапка профиля -->
-        <div class="account_page-header">
-            <div class="account_page-welcome">
-                <div class="account_page-user-info">
+
+        <!-- HEADER -->
+        <div class="acc-header">
+
+            <div class="acc-user">
+                <div class="acc-user-info">
                     {% if user.avatar %}
-                        <img src="{{ user.avatar.url }}" alt="Аватар" class="account_page-avatar">
+                        <img src="{{ user.avatar.url }}" class="acc-avatar">
                     {% else %}
-                        <div class="account_page-avatar-placeholder">
+                        <div class="acc-avatar-placeholder">
                             {{ user.username|first|upper }}
                         </div>
                     {% endif %}
-                    <div class="account_page-user-details">
+
+                    <div class="acc-user-details">
                         <h1>Добро пожаловать, {{ user.username }}!</h1>
-                        <p class="account_page-user-email">{{ user.email }}</p>
+                        <p>{{ user.email }}</p>
                     </div>
                 </div>
-                <div class="account_page-actions">
-                    <a href="{% url 'logout' %}" class="account_page-button account_page-button-secondary">Выйти</a>
+
+                <div class="acc-actions">
+                    <a href="{% url 'logout' %}" class="acc-btn acc-btn-secondary">Выйти</a>
                 </div>
             </div>
-            
-            <!-- Статистика -->
-            <div class="account_page-stats">
-                <div class="account_page-stat-card">
-                    <div class="account_page-stat-number">{{ user.bought_apps|length }}</div>
-                    <div class="account_page-stat-label">Купленные приложения</div>
+
+            <!-- Stats -->
+            <div class="acc-stats">
+                <div class="acc-stat">
+                    <div class="acc-stat-num">{{ user.bought_apps|length }}</div>
+                    <div class="acc-stat-label">Купленные приложения</div>
                 </div>
-                <div class="account_page-stat-card">
-                    <div class="account_page-stat-number">{{ user_estimations|length }}</div>
-                    <div class="account_page-stat-label">Оставленные оценки</div>
+                <div class="acc-stat">
+                    <div class="acc-stat-num">{{ user_estimations|length }}</div>
+                    <div class="acc-stat-label">Оставленные оценки</div>
                 </div>
-                <div class="account_page-stat-card">
-                    <div class="account_page-stat-number">{{ user.achievements|length }}</div>
-                    <div class="account_page-stat-label">Достижения</div>
+                <div class="acc-stat">
+                    <div class="acc-stat-num">{{ user.achievements|length }}</div>
+                    <div class="acc-stat-label">Достижения</div>
                 </div>
             </div>
         </div>
 
-        <!-- Основные разделы -->
-        <div class="account_page-sections">
-            <!-- Купленные приложения -->
-            <div class="account_page-section">
-                <h2 class="account_page-section-title">Купленные приложения</h2>
-                <div class="account_page-apps-grid">
+        <!-- SECTIONS -->
+        <div class="acc-sections">
+
+            <!-- Bought apps -->
+            <div class="acc-section">
+                <h2 class="acc-section-title">Купленные приложения</h2>
+
+                <div class="acc-grid">
                     {% if user.bought_apps %}
                         {% for app_id in user.bought_apps %}
-                        <div class="account_page-app-card">
-                            <div class="account_page-app-icon-placeholder"></div>
-                            <div class="account_page-app-info">
-                                <div class="account_page-app-name">Приложение #{{ forloop.counter }}</div>
-                                <div class="account_page-app-category">ID: {{ app_id }}</div>
+                            <div class="acc-card">
+                                <div class="acc-card-icon"></div>
+                                <div class="acc-card-info">
+                                    <div class="acc-card-name">Приложение #{{ forloop.counter }}</div>
+                                    <div class="acc-card-meta">ID: {{ app_id }}</div>
+                                </div>
                             </div>
-                        </div>
                         {% endfor %}
                     {% else %}
-                        <div class="account_page-empty-state">
-                            <div class="account_page-empty-icon">📱</div>
+                        <div class="acc-empty">
+                            <div class="acc-empty-icon">📱</div>
                             <p>У вас пока нет купленных приложений</p>
-                            <a href="{% url 'apps' %}" class="account_page-button account_page-button-primary" style="margin-top: 15px;">
+                            <a href="{% url 'apps' %}" class="acc-btn acc-btn-primary" style="margin-top: 15px;">
                                 Найти приложения
                             </a>
                         </div>
@@ -88,47 +89,49 @@
                 </div>
             </div>
 
-            <!-- Достижения -->
-            <div class="account_page-section">
-                <h2 class="account_page-section-title">Достижения</h2>
-                <div class="account_page-apps-grid">
+            <!-- Achievements -->
+            <div class="acc-section">
+                <h2 class="acc-section-title">Достижения</h2>
+
+                <div class="acc-grid">
                     {% if user.achievements %}
                         {% for achievement in user.achievements %}
-                        <div class="account_page-app-card">
-                            <div class="account_page-app-icon-placeholder" style="background: #ffd700;"></div>
-                            <div class="account_page-app-info">
-                                <div class="account_page-app-name">Достижение #{{ forloop.counter }}</div>
-                                <div class="account_page-app-category">ID: {{ achievement }}</div>
+                            <div class="acc-card">
+                                <div class="acc-card-icon" style="background: #ffd700;"></div>
+                                <div class="acc-card-info">
+                                    <div class="acc-card-name">Достижение #{{ forloop.counter }}</div>
+                                    <div class="acc-card-meta">ID: {{ achievement }}</div>
+                                </div>
                             </div>
-                        </div>
                         {% endfor %}
                     {% else %}
-                        <div class="account_page-empty-state">
-                            <div class="account_page-empty-icon">🏆</div>
+                        <div class="acc-empty">
+                            <div class="acc-empty-icon">🏆</div>
                             <p>Достижения пока не получены</p>
                         </div>
                     {% endif %}
                 </div>
             </div>
 
-            <!-- Оценки -->
-            <div class="account_page-section">
-                <h2 class="account_page-section-title">Ваши оценки</h2>
-                <div class="account_page-apps-grid">
+            <!-- Reviews -->
+            <div class="acc-section">
+                <h2 class="acc-section-title">Ваши оценки</h2>
+
+                <div class="acc-grid">
                     {% if user_estimations %}
                         {% for estimation in user_estimations %}
-                        <a class="account_page-app-card" href="{% url 'app_detail' app_id=estimation.app.id %}">
-                            <img class="account_page-app-icon-placeholder" src="{{ estimation.app.icon.url }}"></img>
-                            <div class="account_page-app-info">
-                                <div class="account_page-app-name">Отзыв на игру "{{ estimation.app.name }}"</div>
-                                <div class="account_page-app-category">Рейтинг: {{ estimation.estimation|floatformat }}/5</div>
-                            </div>
-                        </a>
+                            <a class="acc-card" href="{% url 'app_detail' app_id=estimation.app.id %}">
+                                <img class="acc-card-icon" src="{{ estimation.app.icon.url }}">
+                                <div class="acc-card-info">
+                                    <div class="acc-card-name">Отзыв: "{{ estimation.app.name }}"</div>
+                                    <div class="acc-card-meta">Рейтинг: {{ estimation.estimation }}/5</div>
+                                </div>
+                            </a>
                         {% endfor %}
                     {% else %}
-                        <div class="account_page-empty-state">
-                            <div class="account_page-empty-icon">⭐</div>
-                            <p>Вы еще не оставляли оценок</p>
+                        <div class="acc-empty">
+                            <div class="acc-empty-icon">⭐</div>
+                            <p>Вы ещё не оставляли оценок</p>
                         </div>
                     {% endif %}
                 </div>
@@ -136,18 +139,20 @@
         </div>
 
         {% else %}
-        <!-- Сообщение для неавторизованных пользователей -->
-        <div class="account_page-header">
-            <div class="account_page-empty-state">
-                <div class="account_page-empty-icon">🔒</div>
+
+        <!-- Not authenticated -->
+        <div class="acc-header">
+            <div class="acc-empty">
+                <div class="acc-empty-icon">🔒</div>
                 <h2>Вы не авторизованы</h2>
-                <p>Для доступа к личному кабинету необходимо войти в систему</p>
-                <div class="account_page-actions" style="justify-content: center;">
-                    <a href="{% url 'login' %}" class="account_page-button account_page-button-primary">Войти</a>
-                    <a href="{% url 'signup' %}" class="account_page-button account_page-button-secondary">Зарегистрироваться</a>
+                <p>Для доступа войдите в систему</p>
+                <div class="acc-actions" style="justify-content: center;">
+                    <a href="{% url 'login' %}" class="acc-btn acc-btn-primary">Войти</a>
+                    <a href="{% url 'signup' %}" class="acc-btn acc-btn-secondary">Регистрация</a>
                 </div>
             </div>
         </div>
+
         {% endif %}
     </div>
 </div>

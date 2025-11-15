@@ -6,36 +6,38 @@
 {% endblock %}
 
 {% block content %}
-<div class="signup_page">
-    <br><br><br>  <br><br><br>  <br><br><br>  
-    <div class="signup_page_container">
-        
-        <!-- Левая часть - оформление -->
-        <div class="signup_page_decor">
-            <div class="signup_page_decor_content">
-                <h1 class="signup_page_decor_title">Добро пожаловать!</h1>
-                <p class="signup_page_decor_subtitle">Присоединяйтесь к нашему сообществу</p>
-                <div class="signup_page_decor_icon"></div>
+<div class="register-page">
+    <br><br><br><br><br><br><br><br><br>
+
+    <div class="register-container">
+
+        <!-- Левая сторона -->
+        <div class="register-decor">
+            <div class="register-decor-content">
+                <h1 class="register-decor-title">Добро пожаловать!</h1>
+                <p class="register-decor-subtitle">Присоединяйтесь к нашему сообществу</p>
+                <div class="register-decor-icon"></div>
             </div>
         </div>
 
-        <!-- Правая часть - форма -->
-        <div class="signup_page_form_section">
-            <div class="signup_page_form_container">
-                <h2 class="signup_page_form_title">Создать аккаунт</h2>
-                <p class="signup_page_form_subtitle">Заполните данные для регистрации</p>
+        <!-- Правая сторона -->
+        <div class="register-form-section">
+            <div class="register-form-container">
 
-                <form method="post" class="signup_page_form">
+                <h2 class="register-form-title">Создать аккаунт</h2>
+                <p class="register-form-subtitle">Заполните данные для регистрации</p>
+
+                <form method="post" class="register-form">
                     {% csrf_token %}
-                    
-                    <!-- Поле username -->
-                    <div class="signup_page_form_group">
-                        <label for="{{ form.username.id_for_label }}" class="signup_page_form_label">
+
+                    <!-- username -->
+                    <div class="register-form-group">
+                        <label for="{{ form.username.id_for_label }}" class="register-label">
                             Имя пользователя
                         </label>
                         {{ form.username }}
                         {% if form.username.errors %}
-                        <div class="signup_page_form_error">
+                        <div class="register-error">
                             {% for error in form.username.errors %}
                                 {{ error }}
                             {% endfor %}
@@ -43,17 +45,16 @@
                         {% endif %}
                     </div>
 
-                    <!-- Поле password1 -->
-                    <div class="signup_page_form_group">
-                        <label for="{{ form.password1.id_for_label }}" class="signup_page_form_label">
+                    <!-- password1 -->
+                    <div class="register-form-group">
+                        <label for="{{ form.password1.id_for_label }}" class="register-label">
                             Пароль
                         </label>
                         {{ form.password1 }}
-                        <div class="signup_page_form_help">
-                            Минимум 8 символов
-                        </div>
+                        <div class="register-help">Минимум 8 символов</div>
+
                         {% if form.password1.errors %}
-                        <div class="signup_page_form_error">
+                        <div class="register-error">
                             {% for error in form.password1.errors %}
                                 {{ error }}
                             {% endfor %}
@@ -61,14 +62,14 @@
                         {% endif %}
                     </div>
 
-                    <!-- Поле password2 -->
-                    <div class="signup_page_form_group">
-                        <label for="{{ form.password2.id_for_label }}" class="signup_page_form_label">
+                    <!-- password2 -->
+                    <div class="register-form-group">
+                        <label for="{{ form.password2.id_for_label }}" class="register-label">
                             Подтверждение пароля
                         </label>
                         {{ form.password2 }}
                         {% if form.password2.errors %}
-                        <div class="signup_page_form_error">
+                        <div class="register-error">
                             {% for error in form.password2.errors %}
                                 {{ error }}
                             {% endfor %}
@@ -76,26 +77,30 @@
                         {% endif %}
                     </div>
 
-                    <!-- Общие ошибки формы -->
                     {% if form.non_field_errors %}
-                    <div class="signup_page_form_error signup_page_form_error_general">
+                    <div class="register-error register-error-general">
                         {% for error in form.non_field_errors %}
                             {{ error }}
                         {% endfor %}
                     </div>
                     {% endif %}
 
-                    <button type="submit" class="signup_page_form_submit">
-                        <span class="signup_page_form_submit_text">Зарегистрироваться</span>
-                        <span class="signup_page_form_submit_icon">→</span>
+                    <button type="submit" class="register-submit">
+                        <span class="register-submit-text">Зарегистрироваться</span>
+                        <span class="register-submit-icon">→</span>
                     </button>
 
-                    <div class="signup_page_form_footer">
-                        <p>Уже есть аккаунт? <a href="{% url 'login' %}" class="signup_page_form_link">Войти</a></p>
+                    <div class="register-footer">
+                        <p style="color: #000;">Уже есть аккаунт? 
+                           <a href="{% url 'login' %}" class="register-link">Войти</a>
+                        </p>
                     </div>
+
                 </form>
+
             </div>
         </div>
+
     </div>
 </div>
 {% endblock %}
