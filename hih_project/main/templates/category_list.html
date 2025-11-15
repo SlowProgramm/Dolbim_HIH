@@ -9,184 +9,69 @@
 <div class="category_list_page">
     
     <!-- Заголовок -->
-    <br><br>   <br><br>   <br><br>  
+    <div class="category_list_header">
+        <h1 class="category_list_title">Выберите категорию</h1>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="categories">
+            {% for category in categories %}
+                <button type="submit" 
+                        name="category_id" 
+                        value="{{ category.id }}"
+                        title="{{ category.description }}">
+                    {{ category.name }}
+                </button>
+            {% endfor %}
+        </div>
 
-    <!-- Форма выбора -->
-    <div class="category_list_form_section">
-<form method="get" action="{% url 'app_for_category' %}" class="category_list_form" id="categoryForm">
-            <!-- Главные категории -->
-            <div class="category_list_form_group">
-                <h2 class="category_list_form_label">Шаг 1: Выберите категорию</h2>
-                <div class="category_list_buttons_grid" id="categoriesGrid">
-                    {% for category in categories %}
-                    <div class="category_list_card category_list_category_card" 
-                         data-category-id="{{ category.id }}"
-                         data-category-name="{{ category.name }}">
-                        <div class="category_list_button_icon">
-                            {% if category.icon %}
-                                <img src="{{ category.icon.url }}" alt="{{ category.name }}">
-                            {% else %}
-                                <div class="category_list_icon_placeholder">🎮</div>
-                            {% endif %}
-                        </div>
-                        <span class="category_list_button_text">{{ category.name }}</span>
-                    </div>
+        {% if selected_category %}
+            <h3>Подкатегории для "{{ selected_category.name }}":</h3>
+            {% if subcategories %}
+                <div class="subcategories">
+                    {% for subcategory in subcategories %}
+                        <button type="submit"
+                                name="subcategory_id"
+                                value="{{ subcategory.id }}"
+                                title="{{ subcategory.description }}">
+                            {{ subcategory.name }}
+                        </button>
                     {% endfor %}
                 </div>
-                <input type="hidden" name="category" id="selectedCategory" value="">
-            </div>
+            {% endif %}
 
-            <!-- Подкатегории (изначально скрыты) -->
-            <div class="category_list_form_group category_list_hidden" id="subcategoriesGroup">
-                <h2 class="category_list_form_label" id="subcategoriesTitle">Шаг 2: Выберите подкатегорию</h2>
-                <div class="category_list_buttons_grid" id="subcategoriesGrid">
-                    {% for category in categories %}
-                        {% for subcategory in category.appsubcategory_set.all %}
-                        <div class="category_list_card category_list_subcategory_card category_list_hidden" 
-                             data-category-id="{{ category.id }}"
-                             data-subcategory-id="{{ subcategory.id }}">
-                            <div class="category_list_button_icon">
-                                {% if subcategory.icon %}
-                                    <img src="{{ subcategory.icon.url }}" alt="{{ subcategory.name }}">
+            {% if apps %}
+                <div class="apps_page_grid">
+                    {% for el in apps %}
+                    <!-- Вся карточка становится ссылкой -->
+                    <a href="{% url 'app_detail' app_id=el.id %}" class="apps_page_card_link">
+                        <div class="apps_page_card">
+
+                            <!-- Иконка -->
+                            <div class="apps_page_icon">
+                                {% if el.icon %}
+                                    <img src="{{ el.icon.url }}" alt="{{ el.name }}" class="apps_page_icon_style">
                                 {% else %}
-                                    <div class="category_list_icon_placeholder">🎯</div>
+                                    <div class="">📱</div>
                                 {% endif %}
                             </div>
-                            <span class="category_list_button_text">{{ subcategory.name }}</span>
+
+                            <!-- Информация -->
+                            <div class="apps_page_info">
+                                <div class="apps_page_title">{{ el.name }}</div>
+                                <div class="apps_page_desc">{{ el.subcategory.name }}</div>
+                                <div class="apps_page_rating">
+                                    ⭐️ {{ el.rating }}
+                                </div>
+                            </div>
+
                         </div>
-                        {% endfor %}
+                    </a>
                     {% endfor %}
                 </div>
-                <input type="hidden" name="subcategory" id="selectedSubcategory" value="">
-            </div>
-
-            <!-- Кнопка отправки -->
-            <div class="category_list_form_group category_list_hidden" id="submitGroup">
-                <button type="submit" class="category_list_submit_btn category_list_button_green">
-                    Показать игры
-                    <span class="category_list_btn_sparkle">✨</span>
-                </button>
-            </div>
-
-        </form>
-    </div>
-</div>
-
-<!-- JavaScript -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const categoriesGrid = document.getElementById('categoriesGrid');
-    const subcategoriesGroup = document.getElementById('subcategoriesGroup');
-    const subcategoriesGrid = document.getElementById('subcategoriesGrid');
-    const subcategoriesTitle = document.getElementById('subcategoriesTitle');
-    const submitGroup = document.getElementById('submitGroup');
-    const selectedCategoryInput = document.getElementById('selectedCategory');
-    const selectedSubcategoryInput = document.getElementById('selectedSubcategory');
-
-    let selectedCategoryId = null;
-    let selectedCategoryName = null;
-
-    // Обработчик выбора категории
-    categoriesGrid.addEventListener('click', function(e) {
-        const categoryCard = e.target.closest('.category_list_category_card');
-        if (!categoryCard) return;
-        
-        selectedCategoryId = categoryCard.getAttribute('data-category-id');
-        selectedCategoryName = categoryCard.getAttribute('data-category-name');
-        
-        console.log('Selected category:', selectedCategoryId, selectedCategoryName);
-        
-        // Сохранить выбранную категорию
-        selectedCategoryInput.value = selectedCategoryId;
-        
-        // Показать подкатегории для выбранной категории
-        showSubcategories(selectedCategoryId, selectedCategoryName);
-    });
-
-    // Обработчик выбора подкатегории
-    subcategoriesGrid.addEventListener('click', function(e) {
-        const subcategoryCard = e.target.closest('.category_list_subcategory_card');
-        if (!subcategoryCard) return;
-        
-        const subcategoryId = subcategoryCard.getAttribute('data-subcategory-id');
-        
-        console.log('Selected subcategory:', subcategoryId);
-        
-        // Убрать выделение со всех подкатегорий
-        document.querySelectorAll('.category_list_subcategory_card').forEach(card => {
-            card.classList.remove('category_list_selected');
-        });
-        
-        // Выделить выбранную подкатегорию
-        subcategoryCard.classList.add('category_list_selected');
-        
-        // Сохранить выбранную подкатегорию
-        selectedSubcategoryInput.value = subcategoryId;
-        
-        // Показать кнопку отправки
-        submitGroup.classList.remove('category_list_hidden');
-        
-        // Прокрутить к кнопке
-        submitGroup.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-        });
-    });
-
-    // Функция показа подкатегорий
-    function showSubcategories(categoryId, categoryName) {
-        console.log('Showing subcategories for category:', categoryId);
-        
-        // Скрыть все подкатегории
-        document.querySelectorAll('.category_list_subcategory_card').forEach(card => {
-            card.classList.add('category_list_hidden');
-        });
-        
-        // Показать только подкатегории выбранной категории
-        const relevantSubcategories = document.querySelectorAll(
-            `.category_list_subcategory_card[data-category-id="${categoryId}"]`
-        );
-        
-        console.log('Found subcategories:', relevantSubcategories.length);
-        
-        if (relevantSubcategories.length === 0) {
-            // Если нет подкатегорий, сразу отправляем форму
-            console.log('No subcategories, submitting form');
-            document.getElementById('categoryForm').submit();
-            return;
-        }
-        
-        relevantSubcategories.forEach(card => {
-            card.classList.remove('category_list_hidden');
-        });
-        
-        // Сбросить выбор подкатегории
-        selectedSubcategoryInput.value = '';
-        submitGroup.classList.add('category_list_hidden');
-        
-        // Обновить заголовок
-        subcategoriesTitle.textContent = `Шаг 2: Выберите подкатегорию (${categoryName})`;
-        
-        // Показать блок с подкатегориями
-        subcategoriesGroup.classList.remove('category_list_hidden');
-        
-        // Прокрутить к подкатегориям
-        subcategoriesGroup.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
-
-    // Если есть выбранная категория в URL (при возврате назад)
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlCategoryId = urlParams.get('category');
-    if (urlCategoryId) {
-        const categoryCard = document.querySelector(`[data-category-id="${urlCategoryId}"]`);
-        if (categoryCard) {
-            const categoryName = categoryCard.getAttribute('data-category-name');
-            showSubcategories(urlCategoryId, categoryName);
-        }
-    }
-});
-</script>
+            {% else %}
+                <h1>Нет приложений</h1>
+            {% endif %}
+        {% endif %}
+    </form>
 {% endblock %}
