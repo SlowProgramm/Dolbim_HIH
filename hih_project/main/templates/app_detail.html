@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ app.name }} - HiH Store
+{% endblock %}
+
+{% block content %}
+<div class="app_detail_page">
+    <div class="app_detail_page_header">
+        <div class="app_detail_page_icon">
+            {% if app.icon %}
+                <img src="{{ app.icon.url }}" alt="{{ app.name }}" class="app_detail_page_icon_img">
+            {% else %}
+                <div class="app_detail_page_icon_placeholder">📱</div>
+            {% endif %}
+        </div>
+        
+        <div class="app_detail_page_info">
+            <h1 class="app_detail_page_title">{{ app.name }}</h1>
+            <p class="app_detail_page_developer">{{ app.developer.name }}</p>
+            
+            <div class="app_detail_page_meta">
+                <div class="app_detail_page_rating">
+                    ⭐ {{ app.rating|floatformat:1 }} <span>({{ app.estimations_count }})</span>
+                </div>
+                <div class="app_detail_page_downloads">📥 {{ app.downloads }}</div>
+                <div class="app_detail_page_size">{{ app.size|filesizeformat }}</div>
+                <div class="app_detail_page_age">{{ app.age_rating.name }}+</div>
+            </div>
+            
+            <button class="app_detail_page_download_btn">Скачать бесплатно</button>
+        </div>
+    </div>
+
+    <!-- Контент -->
+    <div class="app_detail_page_content">
+        <!-- Описание -->
+        <div class="app_detail_page_section">
+            <h2>Описание</h2>
+            <p class="app_detail_page_description">{{ app.description }}</p>
+        </div>
+
+        <!-- Детали -->
+        <div class="app_detail_page_section">
+            <h2>Информация</h2>
+            <div class="app_detail_page_details">
+                <div class="app_detail_page_detail_item">
+                    <span class="app_detail_page_detail_label">::Жанр:</span>
+                    <span class="app_detail_page_detail_value">{{ app.subcategory.category.name }}</span>
+                </div>
+                <div class="app_detail_page_detail_item">
+                    <span class="app_detail_page_detail_label">Поджанр:</span>
+                    <span class="app_detail_page_detail_value">{{ app.subcategory.name }}</span>
+                </div>
+                <div class="app_detail_page_detail_item">
+                    <span class="app_detail_page_detail_label">Разработчик:</span>
+                    <span class="app_detail_page_detail_value">{{ app.developer.name }}</span>
+                </div>
+                <div class="app_detail_page_detail_item">
+                    <span class="app_detail_page_detail_label">Возраст:</span>
+                    <span class="app_detail_page_detail_value">{{ app.age_rating.min_age }}+</span>
+                </div>
+                <div class="app_detail_page_detail_item">
+                    <span class="app_detail_page_detail_label">Просмотры:</span>
+                    <span class="app_detail_page_detail_value">{{ app.views }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

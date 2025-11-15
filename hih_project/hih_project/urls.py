@@ -13,7 +13,8 @@ urlpatterns = [
     path('account/', account_view, name='account'),
     path('admin/', admin.site.urls),
     path('apps/', apps_view, name='apps'),
-    path('fuck/', index_view, name='app_detail'),  # Заглушка
+    path('app/<int:app_id>/', app_detail_view, name='app_detail'),  # Заменили заглушку
+    path('categories/', categories_view, name='category_list'),
 ]
 
 if settings.DEBUG:

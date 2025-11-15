@@ -8,7 +8,7 @@
 {% block content %}
     <div class="apps_page_background">
         <br><br><br><br><br><br><br>
-        <a href="/categories" class="apps_page_button">Все категории</a>
+        <a href="{% url 'category_list' %}" class="apps_page_button">Все категории</a>
 
         <h1 class="apps_page_title_main">Каталог игр</h1>
         {% if apps %}
@@ -16,7 +16,7 @@
 
             {% for el in apps %}
             <!-- Вся карточка становится ссылкой -->
-            <a href="{% url 'home' %}" class="apps_page_card_link">
+             <a href="{% url 'app_detail' app_id=el.id %}" class="apps_page_card_link">
                 <div class="apps_page_card">
 
                     <!-- Иконка -->
