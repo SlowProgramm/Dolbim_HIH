@@ -11,11 +11,11 @@ def icon_path(_, filename: str) -> str:
 
 
 def app_developer_path(instance: 'AppDeveloper', filename: str) -> str:
-    return f'app_developers/developer_{instance.name}/{filename}'
+    return f'app_developers/developer_{instance.id}/{filename}'
 
 
 def app_path(instance: 'App', filename: str) -> str:
-    return f'apps/app_{instance.name}/{filename}'
+    return f'apps/app_{instance.id}/{filename}'
 
     
 def app_preview_image_path(instance: 'AppPreviewImage', filename: str) -> str:
@@ -34,8 +34,8 @@ class Task(Model):
 
 class AppCategory(Model):
     name: CharField = CharField(max_length=100, unique=True)
-    description: TextField = TextField()
-    icon: ImageField = ImageField(default=None, upload_to=icon_path)
+    description: TextField = TextField(default='')
+    icon: ImageField = ImageField(blank=True, upload_to=icon_path)
 
     def __str__(self) -> str:
         return f'AppCategory(name={self.name})'
@@ -44,8 +44,8 @@ class AppCategory(Model):
 class AppSubcategory(Model):
     name: CharField = CharField(max_length=100)
     category: ForeignKey = ForeignKey(AppCategory, CASCADE)
-    description: TextField = TextField()
-    icon: ImageField = ImageField(default=None, upload_to=icon_path)
+    description: TextField = TextField(default='')
+    icon: ImageField = ImageField(blank=True, upload_to=icon_path)
 
     def __str__(self) -> str:
         return f'AppSubcategory(name={self.name}, category={self.category.name})'
@@ -63,12 +63,14 @@ class AppAgeRating(Model):
     
 
 class AppDeveloper(Model):
+    id: TextField = TextField(editable=False, primary_key=True, default=generate_id)
     name: CharField = CharField(max_length=256, unique=True)
-    description: TextField = TextField()
-    avatar: ImageField = ImageField(default=None, upload_to=app_developer_path)
+    description: TextField = TextField(default='')
+    avatar: ImageField = ImageField(blank=True, upload_to=app_developer_path)
 
     def __str__(self) -> str:
         return f'AppDeveloper(name={self.name})'
+
 
 class App(Model):
     id: TextField = TextField(editable=False, primary_key=True, default=generate_id)
@@ -76,14 +78,14 @@ class App(Model):
     """App name."""
     description: TextField = TextField()
     """App description."""
-    icon: ImageField = ImageField(default=None, upload_to=app_path, blank=True)
-    rating: FloatField = FloatField(default=0.0)
+    icon: ImageField = ImageField(upload_to=app_path, blank=True)
+    rating: FloatField = FloatField(editable=False, default=0.0)
     """App rating from 0.0 to 5.0."""
-    estimations_count: PositiveBigIntegerField = PositiveBigIntegerField(default=0)
+    estimations_count: PositiveBigIntegerField = PositiveBigIntegerField(editable=False, default=0)
     """Amount of estimations."""
-    downloads: PositiveBigIntegerField = PositiveBigIntegerField(default=0)
+    downloads: PositiveBigIntegerField = PositiveBigIntegerField(editable=False, default=0)
     """Amount of unique downloads."""
-    views: PositiveBigIntegerField = PositiveBigIntegerField(default=0)
+    views: PositiveBigIntegerField = PositiveBigIntegerField(editable=False, default=0)
     """Amount of unique views."""
     size: FloatField = FloatField()
     """Size of the app in bytes."""
