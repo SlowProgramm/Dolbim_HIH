@@ -93,7 +93,6 @@ class App(models.Model):
     """App age rating."""
     subcategory = models.ForeignKey(AppSubcategory, models.PROTECT)
     """Subcategory of the app."""
-    subcategories = models.JSONField()
     developer = models.ForeignKey(AppDeveloper, models.CASCADE)
     """App developer."""
     rating = models.FloatField(editable=False, default=0.0)
