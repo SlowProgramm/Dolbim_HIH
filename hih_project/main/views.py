@@ -75,22 +75,19 @@ def app_detail_view(request: HttpRequest, app_id:int)-> HttpResponse:
 
 # Страница выбора категории
 def categories_view(request):
-    categories = AppCategory.objects.all()
+    categories = AppCategory.objects.prefetch_related('appsubcategory_set').all()
     return render(request, 'category_list.html', {'categories': categories})
 
 
-# Страница с приложениями конкретной категории
+
 def apps_for_category_view(request):
-    # Бля еще изменения
-    # БАБАБАБАБАБАБ
     category_id = request.GET.get('category')
     subcategory_id = request.GET.get('subcategory')
-    
     apps = App.objects.all()
     
     if subcategory_id:
         apps = apps.filter(subcategory_id=subcategory_id)
     elif category_id:
         apps = apps.filter(subcategory__category_id=category_id)
-    
     return render(request, 'apps.html', {'apps': apps})
+
