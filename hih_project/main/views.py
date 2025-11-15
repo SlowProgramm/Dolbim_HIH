@@ -42,13 +42,18 @@ def login_view(request: HttpRequest) -> HttpResponse:
 
 def account_view(request: HttpRequest) -> HttpResponse:
     return render(request, 'account.html', {
-        'user_estimations': AppEstimation.objects.filter(author=request.user) if request.user.is_authenticated else []
+        'user_estimations': request.user.query_apps_estimations()
     })
 
 
 def apps_view(request: HttpRequest) -> HttpResponse:
-    apps = App.objects.all()
-    return render(request, 'apps.html', {'apps': apps})
+    if request.user.is_authenticated:
+        pass
+
+    return render(request, 'apps.html', {
+        'popular_apps': App.objects.order_by('-rating', '-downloads').all(),
+
+    })
 
 
 def app_detail_view(request: HttpRequest, app_id: str) -> HttpResponse:
@@ -62,7 +67,11 @@ def app_detail_view(request: HttpRequest, app_id: str) -> HttpResponse:
     except AppEstimation.DoesNotExist:
         estimation = None
 
-    
+    if request.user.is_authenticated:
+        if len(request.user.history) == 100:
+            request.user.history.pop()
+        request.user.history.insert(0, app.subcategory.id)
+        request.user.save()
     
     if request.method == 'POST':
         form = EstimationForm(request.POST)
