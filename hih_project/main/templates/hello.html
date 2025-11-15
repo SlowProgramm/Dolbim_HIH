@@ -1,10 +1,16 @@
 {% extends 'base.html'%}
+{% load static %}
 {% block title%}
 {{title}}
 {% endblock %}
 
 {% block content %}
-
+<div id="hello_page_preloader">
+        <div class="hello_page_logo-container">
+            <img src="{% static 'rustore6880.png' %}" alt="Логотип" class="logo" width="600" height="200">
+            <div class="logo-text"><h1>Добро пожаловать</h1></div>
+        </div>
+    </div>
 <main class="main-content">
     
     <div>
@@ -67,4 +73,29 @@
     </div>
 
 </main>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const preloader = document.getElementById('hello_page_preloader');
+            const logoContainer = document.querySelector('.hello_page_logo-container');
+            
+            // Показываем логотип с анимацией
+            setTimeout(function() {
+                preloader.classList.add('hello_page_show-logo');
+            }, 100);
+            
+            // После появления логотипа ждем и переходим к контенту
+            setTimeout(function() {
+                document.body.classList.add('hello_page_loaded');
+                
+                // Удаляем прелоадер из DOM после анимации
+                setTimeout(function() {
+                    if (preloader) {
+                        preloader.remove();
+                    }
+                }, 1000);
+            }, 2500); // Общее время показа прелоадера (2.5 секунды)
+        });
+    </script>
+
 {% endblock %}
