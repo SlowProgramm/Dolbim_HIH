@@ -46,7 +46,7 @@ def account_view(request: HttpRequest) -> HttpResponse:
 
 def apps_view(request: HttpRequest) -> HttpResponse:
     return render(request, 'apps.html', {
-        'popular_apps': App.objects.order_by('-rating', '-downloads').all(),
+        'popular_apps': App.query_popular_apps(),
         'user_top_10_apps': request.user.get_personal_top_10_apps() if request.user.is_authenticated else ()
     })
 
@@ -169,12 +169,11 @@ def apps_for_category_view(request: HttpRequest) -> HttpResponse:
 def developer_view(request: HttpRequest, dev_id: str) -> HttpResponse:
     try:
         dev = AppDeveloper.objects.get(id=dev_id)
-        apps = App.objects.filter(developer=dev)
         return render(request, 'developer_page.html', {
             'dev': dev,
-            'apps' : apps,
+            'apps' : App.query_popular_apps(developer=dev)
         })
-    except App.DoesNotExist:
+    except App.DoesNotExist or AppDeveloper.DoesNotExist:
         return render(request, '404.html', status=404)
 
 

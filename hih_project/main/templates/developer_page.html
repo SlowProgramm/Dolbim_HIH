@@ -3,39 +3,47 @@
 {{ dev.name }} - HiH Store
 {% endblock %}
 
-
 {% block content %}
     <main class="main-content">
-        {% if apps %}
-        <div class="apps_page_grid">
-
-            {% for el in apps %}
-             <a href="{% url 'app_detail' app_id=el.id %}" class="apps_page_card_link">
-                <div class="apps_page_card">
-
-                     <div class="apps_page_icon">
-                        {% if el.icon %}
-                             <img src="{{ el.icon.url }}" alt="{{ el.name }}" class="apps_page_icon_style">
-                        {% else %}
-                            <div class="">📱</div>
-                        {% endif %}
-                    </div>
-
-                    <div class="apps_page_info">
-                        <div class="apps_page_title">{{ el.name }}</div>
-                        <div class="apps_page_desc">{{ el.subcategory.name }}</div>
-                        <div class="apps_page_rating">
-                            ⭐️ {{ el.rating }}
-                        </div>
-                    </div>
-
-                </div>
-            </a>
-            {% endfor %}
-
+        <div class="developer-page-header">
+            <div class="developer-page-header-devavatar">
+                {% if dev.avatar %}
+                    <img src="{{ dev.avatar.url }}" alt="{{ dev.name }} avatar">
+                {% else %}
+                    <span>{{ dev.name|first|upper }}</span>
+                {% endif %}
+            </div>
+            <span class="developer-page-header-title">Приложения от разработчика</span>
+            <span class="developer-page-header-devname">{{ dev.name }}</span>
         </div>
+        {% if apps %}
+            <div class="app-grid">
+                {% for app in apps %}
+                    <div class="app-card-wrapper" data-app-id="{{ app.id }}">
+                        <!-- Скриншоты позади карточки -->
+                        <div class="background-screenshots">
+                            {% for image in app.query_preview_images|slice:":3" %}
+                            <img src="{{ image.source.url }}" alt="Скриншот {{ forloop.counter }}" 
+                                class="bg-screenshot bg-pos-{{ forloop.counter }}">
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Основная карточка -->
+                        <a href="{% url 'app_detail' app_id=app.id %}" class="app-card" style=" display: flex;transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;">
+                            <img src="{{ app.icon.url }}" alt="{{ app.name }}" class="app-card__icon">
+                            <div class="app-card__info">
+                                <h2 class="app-card__title">{{ app.name }}</h2>
+                                <p class="app-card__category">{{ app.subcategory.name }}</p>
+                                <div class="app-card__rating">
+                                    <p class="app-card__rating-value">⭐ {{ app.rating|floatformat:1 }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
         {% else %}
-        <h1>Нет приложений</h1>
+            <h1>Нет приложений</h1>
         {% endif %}
     </main>
 {% endblock %}

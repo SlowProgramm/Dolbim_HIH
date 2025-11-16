@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
@@ -56,7 +57,7 @@ class StoreUser(AbstractUser):
             apps_to_choose_amount = max(1, 9 * (total / history_length))
             apps_to_choose_amount = min(round(apps_to_choose_amount), 9 - len(personal_top_apps))
             print(subcategory, apps_to_choose_amount)
-            personal_top_apps.extend(App.objects.get_queryset().order_by('-rating', '-downloads').filter(subcategory__id=subcategory).all()[:apps_to_choose_amount])
+            personal_top_apps.extend(App.query_popular_apps(subcategory__id=subcategory)[:apps_to_choose_amount])
 
         return personal_top_apps
 
@@ -123,6 +124,10 @@ class App(models.Model):
     """Amount of estimations."""
     downloads = models.PositiveBigIntegerField(editable=False, default=0)
     """Amount of unique downloads."""
+
+    @classmethod
+    def query_popular_apps(cls, order_method: tuple[str, ...] = ('-rating', '-downloads'), **filters: dict[str, Any]):
+        return cls.objects.filter(**filters).order_by(*order_method).all()
 
     def query_preview_images(self):
         return AppPreviewImage.objects.get_queryset().filter(app=self).order_by('place')
