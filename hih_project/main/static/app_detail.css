@@ -61,6 +61,8 @@
 }
 
 .btn-download {
+    display: flex;
+    justify-content: center;
     padding: 14px 28px;
     background: linear-gradient(135deg, #6C63FF, #544DDF);
     border: none;
