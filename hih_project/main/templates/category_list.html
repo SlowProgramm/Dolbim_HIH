@@ -20,6 +20,7 @@
                         name="category_id"
                         value="{{ category.id }}"
                         title="{{ category.description }}">
+                    <img src="{{ category.icon.url }}" alt="" style="width: 1rem; flex-shrink: unset;">
                     <span class="cat-card-name">{{ category.name }}</span>
                 </button>
             {% endfor %}
