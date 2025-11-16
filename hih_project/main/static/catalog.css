@@ -13,7 +13,6 @@
     font-weight: 700;
     color: #544DDF;
     margin-bottom: 20px;
-
     text-shadow: 0 2px 6px rgba(108, 99, 255, 0.15);
 }
 
@@ -25,10 +24,8 @@
 .featured-card {
     flex: 1;
     height: 260px;
-
     border-radius: 20px;
     background: linear-gradient(135deg, #F3F0FF, #E3DFFF);
-
     box-shadow: 0 4px 16px rgba(84, 77, 223, 0.12);
     transition: transform 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
     border: 2px solid transparent;
@@ -55,22 +52,14 @@
 .app-card {
     display: flex;
     align-items: center;
-
     width: 100%;
     padding: 14px;
-
     border-radius: 18px;
     background: #FBFAFF;
     text-decoration: none;
-
     box-shadow: 0 6px 14px rgba(84, 77, 223, 0.1);
     border: 2px solid transparent;
-
-    transition:
-        transform 0.35s ease,
-        box-shadow 0.35s ease,
-        border-color 0.35s ease,
-        background 0.35s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
 }
 
 .app-card:hover {
@@ -84,10 +73,8 @@
     width: 72px;
     height: 72px;
     object-fit: cover;
-
     background-color: #E3DFFF;
     border-radius: 16px;
-
     transition: transform 0.3s ease;
 }
 
@@ -131,6 +118,82 @@
     color: #A393FF;
 }
 
-a {
-    text-decoration: none;
+@media (max-width: 900px) {
+    .catalog__section-title {
+        font-size: 38px;
+    }
+    .featured-list {
+        flex-direction: column;
+    }
+    .featured-card {
+        height: 200px;
+    }
+    .app-grid__item {
+        flex: 0 0 calc(50% - 20px);
+    }
+    .app-card {
+        padding: 12px;
+    }
+    .app-card__icon {
+        width: 64px;
+        height: 64px;
+    }
+    .app-card__title {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    .catalog {
+        padding: 0 12px;
+    }
+    .catalog__section-title {
+        font-size: 32px;
+        margin-bottom: 16px;
+    }
+    .app-grid {
+        gap: 14px;
+    }
+    .app-grid__item {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+    .app-card {
+        padding: 12px;
+        border-radius: 14px;
+    }
+    .app-card__icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 14px;
+    }
+    .app-card__title {
+        font-size: 17px;
+    }
+    .app-card__category,
+    .app-card__rating-value {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 420px) {
+    .catalog__section-title {
+        font-size: 28px;
+    }
+    .app-card {
+        padding: 10px;
+    }
+    .app-card__icon {
+        width: 52px;
+        height: 52px;
+    }
+    .app-card__title {
+        font-size: 16px;
+    }
+    .app-card__category {
+        font-size: 13px;
+    }
+    .app-card__rating-value {
+        font-size: 13px;
+    }
 }

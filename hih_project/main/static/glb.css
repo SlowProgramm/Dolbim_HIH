@@ -23,13 +23,14 @@ html::-webkit-scrollbar {
     width: 0;
 }
 
-a, p, h1, h2, h3, h4, h5, h6 {
+span, a, p, h1, h2, h3, h4, h5, h6 {
+    font-family: Jura, sans-serif;
     margin: 0;
     letter-spacing: 1px;
-    color: #000;
 }
 
 a {
+    text-decoration: none;
     color: #F5F3FF;
     transition: 0.3s;
 }
@@ -40,4 +41,65 @@ a {
 
 .review-login {
     color: #000;
+}
+
+@media (max-width: 900px) {
+    .main {
+        padding: 25px 30px;
+    }
+    body {
+        font-size: 15px;
+    }
+    h1 {
+        font-size: 38px;
+    }
+    h2 {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+    .main {
+        padding: 20px 20px;
+    }
+    h1 {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+    h2 {
+        font-size: 26px;
+    }
+    h3 {
+        font-size: 22px;
+    }
+    p, a {
+        font-size: 15px;
+    }
+    a {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 420px) {
+    body {
+        font-size: 13px;
+    }
+    .main {
+        padding: 16px;
+    }
+    h1 {
+        font-size: 28px;
+    }
+    h2 {
+        font-size: 24px;
+    }
+    h3 {
+        font-size: 20px;
+    }
+    p, a {
+        font-size: 14px;
+    }
 }

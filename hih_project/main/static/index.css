@@ -41,17 +41,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     height: 50px;
     padding: 0 28px;
-
     font-size: 22px;
     font-weight: 700;
     border-radius: 14px;
-
     text-decoration: none;
     color: #fff;
-
     box-shadow: 0 4px 14px rgba(32, 25, 70, 0.15);
     transition: 0.25s ease;
 }
@@ -93,17 +89,13 @@
 
 .categories__item {
     padding: 10px 24px;
-
     font-size: 20px;
     font-weight: 600;
     text-decoration: none;
-
     color: #544DDF;
     background: #FAF9FF;
-
     border: 2px solid #DBD4FF;
     border-radius: 14px;
-
     box-shadow: 0 4px 14px rgba(32, 25, 70, 0.15);
     transition: 0.25s ease;
 }
@@ -124,11 +116,9 @@
 .feature-card {
     max-width: 420px;
     padding: 25px 30px;
-
     background: #FAF9FF;
     border: 1px solid #DBD4FF;
     border-radius: 16px;
-
     box-shadow: 0 4px 14px rgba(32, 25, 70, 0.15);
     transition: 0.25s ease;
 }
@@ -147,4 +137,98 @@
 .feature-card__text {
     font-size: 18px;
     color: #8A88A6;
+}
+
+@media (max-width: 1024px) {
+    .page__title {
+        font-size: 48px;
+        margin: 60px 0;
+    }
+
+    .page__subtitle {
+        font-size: 30px;
+    }
+
+    .features {
+        gap: 20px;
+    }
+
+    .feature-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .page {
+        margin: 40px 16px;
+    }
+
+    .page__title {
+        font-size: 38px;
+        margin: 40px 0 50px;
+    }
+
+    .page__subtitle {
+        font-size: 24px;
+        border-left-width: 3px;
+        padding-left: 12px;
+    }
+
+    .auth {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .auth__btn {
+        font-size: 18px;
+        height: 46px;
+        padding: 0 20px;
+    }
+
+    .categories-section__title {
+        font-size: 34px;
+    }
+
+    .categories__item {
+        font-size: 18px;
+        padding: 8px 20px;
+    }
+
+    .features {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .feature-card {
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .feature-card__title {
+        font-size: 24px;
+    }
+
+    .feature-card__text {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page__title {
+        font-size: 32px;
+    }
+
+    .page__subtitle {
+        font-size: 20px;
+    }
+
+    .categories__item {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .auth__btn {
+        width: 100%;
+    }
 }

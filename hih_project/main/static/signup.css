@@ -197,17 +197,20 @@
     text-decoration: underline;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .register-container {
         grid-template-columns: 1fr;
+        max-width: 700px;
     }
+}
 
+@media (max-width: 768px) {
     .register-decor {
-        padding: 40px 20px;
+        padding: 40px 25px;
     }
 
     .register-form-section {
-        padding: 40px 20px;
+        padding: 40px 25px;
     }
 
     .register-decor-title {
@@ -215,6 +218,49 @@
     }
 
     .register-form-title {
-        font-size: 1.8em;
+        font-size: 1.7em;
+    }
+}
+
+@media (max-width: 480px) {
+    .register-page {
+        padding: 10px;
+    }
+
+    .register-container {
+        border-radius: 18px;
+    }
+
+    .register-form-container {
+        max-width: 100%;
+    }
+
+    .register-form input {
+        padding: 13px 16px;
+        font-size: 0.95em;
+    }
+
+    .register-submit {
+        padding: 16px 20px;
+        font-size: 1em;
+    }
+
+    .register-decor-title {
+        font-size: 1.7em;
+    }
+}
+
+@media (max-width: 360px) {
+    .register-form-title {
+        font-size: 1.5em;
+    }
+
+    .register-decor-title {
+        font-size: 1.5em;
+    }
+
+    .register-submit {
+        padding: 14px 18px;
+        font-size: 0.9em;
     }
 }
