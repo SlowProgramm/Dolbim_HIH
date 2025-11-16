@@ -123,5 +123,53 @@
 
 @keyframes fade-in {
     from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+    .auth-card {
+        padding: 28px;
+        border-radius: 14px;
+    }
+    .auth-title {
+        font-size: 22px;
+    }
+    .auth-subtitle {
+        font-size: 14px;
+    }
+    .auth-input {
+        font-size: 14px;
+        padding: 12px 14px;
+    }
+    .auth-btn {
+        padding: 12px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 420px) {
+    .auth-wrap {
+        padding: 14px;
+    }
+    .auth-card {
+        padding: 22px;
+        border-radius: 12px;
+    }
+    .auth-title {
+        font-size: 20px;
+    }
+    .auth-input {
+        padding: 11px 13px;
+        font-size: 13px;
+    }
+    .auth-btn {
+        padding: 11px;
+        font-size: 14px;
+    }
+    .auth-icon {
+        left: 12px;
+    }
+    .auth-toggle {
+        right: 10px;
+    }
 }
