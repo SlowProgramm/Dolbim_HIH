@@ -11,23 +11,27 @@
         <section class="catalog__section">
             <h1 class="catalog__section-title">Для вас</h1>
 
-            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            <div class="app-grid">
                 {% for app in user_top_10_apps %}
-                <div class="app-grid__item">
-  <a href="{% url 'app_detail' app_id=app.id %}" style="display: flex; align-items: center; width: 100%; min-height: 120px; padding: 14px; border-radius: 18px; background: #FBFAFF; text-decoration: none; box-shadow: 0 6px 14px rgba(84, 77, 223, 0.1); border: 2px solid transparent; transition: all 0.35s ease;">
-
-                        <img src="{{ app.icon.url }}" alt="" class="app-card__icon">
-
+                <div class="app-card-wrapper" data-app-id="{{ app.id }}">
+                    <!-- Скриншоты позади карточки -->
+                    <div class="background-screenshots">
+                        {% for image in app.query_preview_images|slice:":3" %}
+                        <img src="{{ image.source.url }}" alt="Скриншот {{ forloop.counter }}" 
+                             class="bg-screenshot bg-pos-{{ forloop.counter }}">
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Основная карточка -->
+                    <a href="{% url 'app_detail' app_id=app.id %}" class="app-card" style=" display: flex;transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;">
+                        <img src="{{ app.icon.url }}" alt="{{ app.name }}" class="app-card__icon">
                         <div class="app-card__info">
                             <h2 class="app-card__title">{{ app.name }}</h2>
                             <p class="app-card__category">{{ app.subcategory.name }}</p>
-
                             <div class="app-card__rating">
-                                <img src="{% static 'src/star.png' %}" class="app-card__rating-star" alt="">
-                                <p style="font-size: 16px; color: #A393FF; margin: 0;">{{ app.rating }}</p>
+                                <p class="app-card__rating-value">⭐ {{ app.rating|floatformat:1 }}</p>
                             </div>
                         </div>
-
                     </a>
                 </div>
                 {% endfor %}
@@ -38,25 +42,27 @@
     <section class="catalog__section">
         <h1 class="catalog__section-title">Топ приложений</h1>
 
-
-
-
         <div class="app-grid">
             {% for app in popular_apps %}
-            <div class="app-grid__item">
-                  <a href="{% url 'app_detail' app_id=app.id %}" style="display: flex; align-items: center; width: 100%; min-height: 120px; padding: 14px; border-radius: 18px; background: #FBFAFF; text-decoration: none; box-shadow: 0 6px 14px rgba(84, 77, 223, 0.1); border: 2px solid transparent; transition: all 0.35s ease;">
-
-                    <img src="{{ app.icon.url }}" alt="" class="app-card__icon">
-
+            <div class="app-card-wrapper" data-app-id="{{ app.id }}">
+                <!-- Скриншоты позади карточки -->
+                <div class="background-screenshots">
+                    {% for image in app.query_preview_images|slice:":3" %}
+                    <img src="{{ image.source.url }}" alt="Скриншот {{ forloop.counter }}" 
+                         class="bg-screenshot bg-pos-{{ forloop.counter }}">
+                    {% endfor %}
+                </div>
+                
+                <!-- Основная карточка -->
+                <a href="{% url 'app_detail' app_id=app.id %}" class="app-card" style=" display: flex;transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;">
+                    <img src="{{ app.icon.url }}" alt="{{ app.name }}" class="app-card__icon">
                     <div class="app-card__info">
                         <h2 class="app-card__title">{{ app.name }}</h2>
                         <p class="app-card__category">{{ app.subcategory.name }}</p>
-
                         <div class="app-card__rating">
                             <p class="app-card__rating-value">⭐ {{ app.rating|floatformat:1 }}</p>
                         </div>
                     </div>
-
                 </a>
             </div>
             {% endfor %}
@@ -64,5 +70,43 @@
     </section>
 
 </div>
+
+<style>
+
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cardWrappers = document.querySelectorAll('.app-card-wrapper');
+    
+    cardWrappers.forEach(wrapper => {
+        let isHovered = false;
+        let hoverTimeout;
+        
+        wrapper.addEventListener('mouseenter', function() {
+            isHovered = true;
+            // Задержка для плавного появления
+            hoverTimeout = setTimeout(() => {
+                if (isHovered) {
+                    this.classList.add('card-hovered');
+                }
+            }, 100);
+        });
+        
+        wrapper.addEventListener('mouseleave', function() {
+            isHovered = false;
+            clearTimeout(hoverTimeout);
+            this.classList.remove('card-hovered');
+        });
+    });
+    
+    // Предзагрузка изображений для плавной анимации
+    const bgScreenshots = document.querySelectorAll('.bg-screenshot');
+    bgScreenshots.forEach(img => {
+        const tempImg = new Image();
+        tempImg.src = img.src;
+    });
+});
+</script>
 
 {% endblock %}
