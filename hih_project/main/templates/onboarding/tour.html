@@ -251,11 +251,9 @@
             </div>
         </header>
 
-        <!-- Тур поверх страницы -->
         <div class="onboarding-tour" id="onboardingTour">
-            <!-- Шаги тура -->
             <div class="tour-steps">
-                <!-- Шаг 1: Главная -->
+                <!-- ШАГ 1 ГЛАВНАЯ -->
                 <div class="tour-step step-1 active">
                     <div class="tour-highlight" data-element='.nav__item[href="{% url 'index' %}"]'></div>
                     <div class="tour-tooltip" style="top: 100px; left: 20px;">
@@ -267,7 +265,7 @@
                     </div>
                 </div>
 
-                <!-- Шаг 2: Каталог -->
+                <!-- ШАГ 2 КАТАЛОГ -->
                 <div class="tour-step step-2">
                     <div class="tour-highlight" data-element='.nav__item[href="{% url 'apps' %}"]'></div>
                     <div class="tour-tooltip" style="top: 100px; left: 20px;">
@@ -280,7 +278,7 @@
                     </div>
                 </div>
 
-                <!-- Шаг 3: Категории -->
+                <!-- ШАГ 3 КАТЕГОРИИ -->
                 <div class="tour-step step-3">
                     <div class="tour-highlight" data-element='.nav__item[href="{% url 'categories' %}"]'></div>
                     <div class="tour-tooltip" style="top: 100px; left: 20px;">
@@ -293,7 +291,7 @@
                     </div>
                 </div>
 
-                <!-- Шаг 4: Поиск -->
+                <!-- ШАГ 4 ПОИСК -->
                 <div class="tour-step step-4">
                     <div class="tour-highlight" data-element='.search-btn'></div>
                     <div class="tour-tooltip" style="top: 100px; right: 20px;">
@@ -306,7 +304,7 @@
                     </div>
                 </div>
 
-                <!-- Шаг 5: Пользователь -->
+                <!-- ШАГ 5 АККАУНТ -->
                 <div class="tour-step step-5">
                     <div class="tour-highlight" data-element='.user'></div>
                     <div class="tour-tooltip" style="top: 100px; right: 20px;">
@@ -321,36 +319,25 @@
             </div>
         </div>
 
-        <!-- Основной контент -->
-        <main>
-            {% block content %}
-            {% endblock %}
-        </main>
+        <!-- ОСНОВНОЙ КОНТ -->
+        <main>{% block content %}{% endblock %}</main>
     </div>
 
-    <script>
+<script>
     let currentStep = 1;
 
-    // Запуск прелоадера сразу при загрузке
     document.addEventListener('DOMContentLoaded', function() {
-        // Прелоадер уже виден по умолчанию
-        // Основной контент скрыт через CSS
-        
-        // Ждем 2.5 секунды и показываем основной контент
         setTimeout(function() {
             const preloader = document.getElementById('preloader');
             const mainContent = document.querySelector('.main-content');
             
-            // Плавно скрываем прелоадер
             preloader.style.transition = 'opacity 0.8s ease';
             preloader.style.opacity = '0';
             
-            // Показываем основной контент
             setTimeout(function() {
                 mainContent.style.display = 'block';
                 preloader.style.display = 'none';
                 
-                // После завершения прелоадера проверяем нужно ли показывать тур
                 if (!localStorage.getItem('onboardingCompleted')) {
                     document.getElementById('onboardingTour').style.display = 'block';
                     setTimeout(function() {
@@ -358,7 +345,7 @@
                     }, 100);
                 }
             }, 800);
-        }, 2500); // Общее время показа прелоадера (2.5 секунды)
+        }, 2500);
     });
 
     function nextStep(step) {
@@ -405,7 +392,7 @@
             completeTour();
         }
     });
-    </script>
+</script>
 
 </body>
 </html>

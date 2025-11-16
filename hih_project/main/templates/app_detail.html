@@ -194,140 +194,130 @@
 </div>
 
 <script>
-function changeMainImage(src, element) {
-    document.getElementById('mainCarouselImage').src = src;
-    document.querySelectorAll('.thumbnail').forEach(thumb => {
-        thumb.classList.remove('active');
+    function changeMainImage(src, element) {
+        document.getElementById('mainCarouselImage').src = src;
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+            thumb.classList.remove('active');
+        });
+        element.classList.add('active');
+    }
+
+    let currentGalleryIndex = 0;
+    const galleryImages = [
+        {% for image in app_preview_images %}
+            "{{ image.source.url }}",
+        {% endfor %}
+    ];
+
+    function openGallery(index) {
+        currentGalleryIndex = index;
+        updateGalleryImage();
+        document.getElementById('galleryOverlay').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeGallery() {
+        document.getElementById('galleryOverlay').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    function changeGalleryImage(direction) {
+        currentGalleryIndex += direction;
+        
+        if (currentGalleryIndex < 0) {
+            currentGalleryIndex = galleryImages.length - 1;
+        } else if (currentGalleryIndex >= galleryImages.length) {
+            currentGalleryIndex = 0;
+        }
+        
+        updateGalleryImage();
+    }
+
+    function updateGalleryImage() {
+        const galleryImage = document.getElementById('galleryImage');
+        const galleryCurrent = document.getElementById('galleryCurrent');
+        const galleryTotal = document.getElementById('galleryTotal');
+        
+        galleryImage.src = galleryImages[currentGalleryIndex];
+        galleryCurrent.textContent = currentGalleryIndex + 1;
+        galleryTotal.textContent = galleryImages.length;
+    }
+
+    document.getElementById('galleryOverlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeGallery();
+        }
     });
-    element.classList.add('active');
-}
 
-// начало кода скриншотов
+    document.addEventListener('keydown', function(e) {
+        const gallery = document.getElementById('galleryOverlay');
+        if (gallery.style.display === 'flex') {
+            if (e.key === 'Escape') closeGallery();
+            if (e.key === 'ArrowLeft') changeGalleryImage(-1);
+            if (e.key === 'ArrowRight') changeGalleryImage(1);
+        }
+    });
 
-let currentGalleryIndex = 0;
-const galleryImages = [
-    {% for image in app_preview_images %}
-        "{{ image.source.url }}",
-    {% endfor %}
-];
-
-function openGallery(index) {
-    currentGalleryIndex = index;
-    updateGalleryImage();
-    document.getElementById('galleryOverlay').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
-
-function closeGallery() {
-    document.getElementById('galleryOverlay').style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
-function changeGalleryImage(direction) {
-    currentGalleryIndex += direction;
-    
-    if (currentGalleryIndex < 0) {
-        currentGalleryIndex = galleryImages.length - 1;
-    } else if (currentGalleryIndex >= galleryImages.length) {
-        currentGalleryIndex = 0;
-    }
-    
-    updateGalleryImage();
-}
-
-function updateGalleryImage() {
-    const galleryImage = document.getElementById('galleryImage');
-    const galleryCurrent = document.getElementById('galleryCurrent');
-    const galleryTotal = document.getElementById('galleryTotal');
-    
-    galleryImage.src = galleryImages[currentGalleryIndex];
-    galleryCurrent.textContent = currentGalleryIndex + 1;
-    galleryTotal.textContent = galleryImages.length;
-}
-
-// Закрытие галереи по клику на оверлей
-document.getElementById('galleryOverlay').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeGallery();
-    }
-});
-
-// Управление клавиатурой
-document.addEventListener('keydown', function(e) {
-    const gallery = document.getElementById('galleryOverlay');
-    if (gallery.style.display === 'flex') {
-        if (e.key === 'Escape') closeGallery();
-        if (e.key === 'ArrowLeft') changeGalleryImage(-1);
-        if (e.key === 'ArrowRight') changeGalleryImage(1);
-    }
-});
-
-// Конец ночного скринщота
-
-
-// Ночной код Звезды
-// Star rating functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const stars = document.querySelectorAll('.star');
-    const ratingInput = document.getElementById('{{ form.estimation.id_for_label }}');
-    const ratingText = document.querySelector('.rating-text');
-    
-    // Set initial rating if exists
-    const initialRating = parseInt(ratingInput.value);
-    if (initialRating > 0) {
-        updateStars(initialRating);
-        updateRatingText(initialRating);
-    }
-    
-    stars.forEach(star => {
-        star.addEventListener('click', function() {
-            const value = parseInt(this.getAttribute('data-value'));
-            ratingInput.value = value;
-            updateStars(value);
-            updateRatingText(value);
+    document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('{{ form.estimation.id_for_label }}');
+        const ratingText = document.querySelector('.rating-text');
+        
+        const initialRating = parseInt(ratingInput.value);
+        if (initialRating > 0) {
+            updateStars(initialRating);
+            updateRatingText(initialRating);
+        }
+        
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                ratingInput.value = value;
+                updateStars(value);
+                updateRatingText(value);
+            });
+            
+            star.addEventListener('mouseover', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                updateStars(value, true);
+                updateRatingText(value);
+            });
         });
         
-        star.addEventListener('mouseover', function() {
-            const value = parseInt(this.getAttribute('data-value'));
-            updateStars(value, true);
-            updateRatingText(value);
+        document.querySelector('.star-rating').addEventListener('mouseleave', function() {
+            const currentRating = parseInt(ratingInput.value);
+            updateStars(currentRating);
+            updateRatingText(currentRating);
         });
-    });
-    
-    document.querySelector('.star-rating').addEventListener('mouseleave', function() {
-        const currentRating = parseInt(ratingInput.value);
-        updateStars(currentRating);
-        updateRatingText(currentRating);
-    });
-    
-    function updateStars(rating, isHover = false) {
-        stars.forEach(star => {
-            const starValue = parseInt(star.getAttribute('data-value'));
-            if (starValue <= rating) {
-                star.classList.add('active');
-                if (isHover) {
-                    star.classList.add('hover');
+        
+        function updateStars(rating, isHover = false) {
+            stars.forEach(star => {
+                const starValue = parseInt(star.getAttribute('data-value'));
+                if (starValue <= rating) {
+                    star.classList.add('active');
+                    if (isHover) {
+                        star.classList.add('hover');
+                    } else {
+                        star.classList.remove('hover');
+                    }
                 } else {
-                    star.classList.remove('hover');
+                    star.classList.remove('active', 'hover');
                 }
-            } else {
-                star.classList.remove('active', 'hover');
-            }
-        });
-    }
-    
-    function updateRatingText(rating) {
-        const texts = {
-            0: 'Выберите оценку',
-            1: 'Ужасно',
-            2: 'Плохо',
-            3: 'Нормально',
-            4: 'Хорошо',
-            5: 'Отлично'
-        };
-        ratingText.textContent = texts[rating];
-    }
-});
+            });
+        }
+        
+        function updateRatingText(rating) {
+            const texts = {
+                0: 'Выберите оценку',
+                1: 'Ужасно',
+                2: 'Плохо',
+                3: 'Нормально',
+                4: 'Хорошо',
+                5: 'Отлично'
+            };
+            ratingText.textContent = texts[rating];
+        }
+    });
 </script>
 
 {% endblock %}
