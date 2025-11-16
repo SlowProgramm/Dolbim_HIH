@@ -73,28 +73,15 @@
 </main>
 
 <script>
-document.addEventListener('submit', function(e) {
-    if (e.target.tagName === 'FORM') {
-        sessionStorage.setItem('scrollPosition', window.pageYOffset);
-        sessionStorage.setItem('formSubmitted', 'true');
-    }
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    if (sessionStorage.getItem('formSubmitted') === 'true') {
-        const scrollPosition = sessionStorage.getItem('scrollPosition');
-        if (scrollPosition) {
-            setTimeout(() => {
-                window.scrollTo({
-                    top: parseInt(scrollPosition),
-                    behavior: 'smooth' // Плавная прокрутка
-                });
-                sessionStorage.removeItem('scrollPosition');
-                sessionStorage.removeItem('formSubmitted');
-            }, 50);
+window.addEventListener("beforeunload", () => {
+        sessionStorage.setItem("scroll", window.scrollY);
+    });
+    window.addEventListener("DOMContentLoaded", () => {
+        const y = sessionStorage.getItem("scroll");
+        if (y !== null) {
+            window.scrollTo(0, y);
         }
-    }
-});
+    });
 
 document.addEventListener('DOMContentLoaded', function() {
     const burgerMenu = document.getElementById('burgerMenu');

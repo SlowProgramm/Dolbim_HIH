@@ -317,7 +317,7 @@
 }
 
 /* АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ */
-@media (max-width: 968px) {
+@media (max-width: 1050px) {
     /* ПОКАЗЫВАЕМ БУРГЕР */
     .burger-menu {
         display: flex;

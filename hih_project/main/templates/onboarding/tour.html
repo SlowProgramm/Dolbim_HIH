@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{% static 'glb.css' %}">
     
     <style>
     /* Стили для прелоадера */
@@ -226,7 +227,7 @@
 
                 <!-- ПОИСК + ЮЗЕР + БУРГЕР -->
                 <div class="header__right">
-                    <a href="{% url 'search' %}" class="search-btn">
+                    <a href="{% url 'search' %}" class="search-btn" style="text-decoration: none;">
                         <img src="{% static 'src/search.png' %}" class="search-btn__icon" alt="">
                         <span class="search-btn__text">Поиск</span>
                     </a>
@@ -335,7 +336,7 @@
             preloader.style.opacity = '0';
             
             setTimeout(function() {
-                mainContent.style.display = 'block';
+                mainContent.style.display = 'inline';
                 preloader.style.display = 'none';
                 
                 if (!localStorage.getItem('onboardingCompleted')) {
