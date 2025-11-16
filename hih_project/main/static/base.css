@@ -131,11 +131,7 @@
 }
 
 /* --------------------------------------------------
-   БЛОК ПОЛЬЗОВАТЕЛЯ (АВАТАР)
--------------------------------------------------- */
-
-/* --------------------------------------------------
-   ИКОНКА ПОЛЬЗОВАТЕЛЯ (БЕЗ ОБВОДКИ)
+   ИКОНКА ПОЛЬЗОВАТЕЛЯ
 -------------------------------------------------- */
 
 .user-link {
@@ -150,16 +146,150 @@
     width: 46px;
     height: 46px;
     object-fit: cover;
-
-    /* никаких рамок, никаких фонов */
     border: none;
     background: none;
-
     transition: 0.25s ease;
 }
 
-/* Hover — только лёгкое увеличение и мягкая тень */
 .user-link:hover .user {
     transform: translateY(-2px);
     filter: drop-shadow(0 6px 16px rgba(108, 99, 255, 0.28));
+}
+
+/* --------------------------------------------------
+   БУРГЕР МЕНЮ
+-------------------------------------------------- */
+
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.burger-menu span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #544DDF;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.burger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.burger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* --------------------------------------------------
+   АДАПТИВНОСТЬ
+-------------------------------------------------- */
+
+@media (max-width: 1024px) {
+    .header__inner {
+        margin: 0 20px;
+        padding: 0 15px;
+    }
+    
+    .nav {
+        gap: 25px;
+    }
+    
+    .nav__item {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 968px) {
+    .burger-menu {
+        display: flex;
+    }
+    
+    .nav {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: linear-gradient(135deg, #FBFAFF 0%, #F3F0FF 100%);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 100px;
+        gap: 30px;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 15px rgba(32, 25, 70, 0.2);
+        z-index: 999;
+    }
+    
+    .nav.active {
+        left: 0;
+    }
+    
+    .nav__item {
+        font-size: 24px;
+        padding: 15px 0;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #DBD4FF;
+    }
+    
+    .nav__item:last-child {
+        border-bottom: none;
+    }
+    
+    .header__logo-text {
+        font-size: 28px;
+    }
+    
+    .search-btn__text {
+        display: none;
+    }
+    
+    .search-btn {
+        padding: 8px 15px;
+    }
+    
+    body.menu-open {
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 480px) {
+    .header__inner {
+        margin: 0 10px;
+        padding: 0 10px;
+    }
+    
+    .header__logo-img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .header__logo-text {
+        font-size: 24px;
+    }
+    
+    .user {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .nav {
+        width: 100%;
+    }
 }

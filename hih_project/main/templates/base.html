@@ -1,5 +1,7 @@
 {% load static %}
 
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -30,18 +32,18 @@
             <h4 class="header__logo-text">RuStore</h4>
         </a>
 
-        <!-- МЕНЮ -->
-        <nav class="nav">
+        <!-- МЕНЮ (ДЛЯ ДЕСКТОПА) -->
+        <nav class="nav" id="mainNav">
             <a href="{% url 'index' %}" class="nav__item">Главная</a>
             <a href="{% url 'apps' %}" class="nav__item">Каталог</a>
             <a href="{% url 'categories' %}" class="nav__item">Категории</a>
         </nav>
 
-        <!-- ПОИСК + ЮЗЕР -->
+        <!-- ПОИСК + ЮЗЕР + БУРГЕР -->
         <div class="header__right">
             <a href="{% url 'search' %}" class="search-btn">
                 <img src="{% static 'src/search.png' %}" class="search-btn__icon" alt="">
-                Поиск
+                <span class="search-btn__text">Поиск</span>
             </a>
 
             {% if user.is_authenticated %}
@@ -53,14 +55,43 @@
                     <img src="{% static 'src/avatar.png' %}" class="user" alt="">
                 </a>
             {% endif %}
+
+            <!-- БУРГЕР МЕНЮ (ДЛЯ МОБИЛЬНЫХ) -->
+            <button class="burger-menu" id="burgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </div>
 </header>
 
-
 <!-- ОСНОВНОЙ КОНТЕНТ -->
-    <main class="main">
-        {% block content %}{% endblock %}
-    </main>
+<main class="main">
+    {% block content %}{% endblock %}
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const burgerMenu = document.getElementById('burgerMenu');
+    const mainNav = document.getElementById('mainNav');
+    
+    burgerMenu.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mainNav.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    });
+    
+    // Закрытие меню при клике на ссылку
+    const navItems = document.querySelectorAll('.nav__item');
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            burgerMenu.classList.remove('active');
+            mainNav.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        });
+    });
+});
+</script>
 </body>
 </html>
