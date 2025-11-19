@@ -37,4 +37,13 @@
         </div>
     </div>
 </div>
+
+<script src="{% static 'js/onboarding.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (!hasCompletedOnboarding()) {
+            window.location.href = "{% url 'onboarding_welcome' %}";
+        }
+    });
+</script>
 {% endblock %}

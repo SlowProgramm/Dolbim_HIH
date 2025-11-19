@@ -143,19 +143,14 @@
 
 <script src="{% static 'js/onboarding.js' %}"></script>
 <script>
-// Проверка при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     if (hasCompletedOnboarding()) {
-        // Если уже проходил - сразу показываем основной контент
-        window.location.href = '{% url 'index' %}';
+        window.location.href = "{% url 'index' %}";
     }
 });
 
 function startOnboarding() {
-    // Скрываем приветственный экран
     document.getElementById('onboardingOverlay').style.display = 'none';
-    
-    // Запускаем тур
     startTour();
 }
 
