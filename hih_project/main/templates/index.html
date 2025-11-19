@@ -10,11 +10,22 @@
     
     <div class="page__intro">
         <p class="page__subtitle">Безопасный доступ к популярным играм и приложениям</p>
-        <h2 class="page__notice">Перед использоваением рекомендуется зарегистрироваться или войти в аккаунт, если вы уже зарегистрированы</h2>
-        
+
+        <h2 class="page__notice">
+            {% if user.is_authenticated %}
+                Ура, вы уже с нами! Проверьте личный кабинет — там может быть что-то интересное:
+            {% else %}
+                Перед использоваением рекомендуется зарегистрироваться или войти в аккаунт, если вы уже зарегистрированы:
+            {% endif %}
+        </h2>
+
         <div class="auth">
-            <a href="signup/" class="auth__btn auth__btn--primary">Регистрация</a>
-            <a href="login" class="auth__btn auth__btn--secondary">Войти</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'account' %}" class="auth__btn auth__btn--primary">Личный кабинет</a>
+            {% else %}
+                <a href="{% url 'signup' %}" class="auth__btn auth__btn--primary">Регистрация</a>
+                <a href="{% url 'login' %}" class="auth__btn auth__btn--secondary">Войти</a>
+            {% endif %}
         </div>
     </div>
 
